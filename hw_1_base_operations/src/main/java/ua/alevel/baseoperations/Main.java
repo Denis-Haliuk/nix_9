@@ -1,7 +1,10 @@
 package ua.alevel.baseoperations;
 
+import ua.alevel.baseoperations.firsttask.FirstTask;
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Main.main");
+        FirstTask firstTask = new FirstTask();
+        firstTask.firstTask();
+
     }
 }
