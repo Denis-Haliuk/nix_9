@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class SecondTask {
     public void secondTask() {
+        System.out.println("Second task!");
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your string:");
         String input = scanner.nextLine();
@@ -21,13 +23,9 @@ public class SecondTask {
             }
         }
 
-        System.out.println(chars);
-
         int charAmount = 1;
         char buf;
         Collections.sort(chars);
-        System.out.println(chars);
-
 
         char[] sorted = new char[chars.size()];
         for (int i = 0; i < chars.size(); i++) {
@@ -35,11 +33,20 @@ public class SecondTask {
         }
 
         for (int i = 0; i < sorted.length - 1; i++) {
-            if (sorted[i] == sorted[i + 1]) {
+            if (sorted[i] == sorted[i + 1] && i != sorted.length - 2) {
                 charAmount++;
             } else {
-                System.out.println(sorted[i] + "=" + charAmount);
-                charAmount = 1;
+                if (i == sorted.length - 2 && sorted[i] == sorted[i + 1]) {
+                    charAmount++;
+                    System.out.println(sorted[i] + "=" + charAmount);
+                    charAmount = 1;
+                } else if (i == sorted.length - 2 && sorted[i] != sorted[i + 1]) {
+                    System.out.println(sorted[i] + "=" + charAmount);
+                    System.out.println(sorted[i + 1] + "=" + 1);
+                } else {
+                    System.out.println(sorted[i] + "=" + charAmount);
+                    charAmount = 1;
+                }
             }
         }
     }
