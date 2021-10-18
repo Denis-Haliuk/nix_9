@@ -1,4 +1,4 @@
-package ua.alevel.baseoperations.thirdtask;
+package ua.alevel.thirdtask;
 
 import java.util.Scanner;
 

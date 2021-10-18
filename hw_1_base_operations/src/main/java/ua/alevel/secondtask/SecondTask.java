@@ -1,4 +1,4 @@
-package ua.alevel.baseoperations.secondtask;
+package ua.alevel.secondtask;
 
 import java.util.ArrayList;
 import java.util.Collections;

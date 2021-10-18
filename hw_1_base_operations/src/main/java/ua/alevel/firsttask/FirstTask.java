@@ -1,4 +1,4 @@
-package ua.alevel.baseoperations.firsttask;
+package ua.alevel.firsttask;
 
 import java.util.ArrayList;
 import java.util.Scanner;

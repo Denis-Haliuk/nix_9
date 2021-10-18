@@ -24,11 +24,14 @@
     <modules>
         <module>hw_1_base_operations</module>
         <module>hw_2_strings</module>
+        <module>string_helper</module>
     </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
+
+
 
 </project>
