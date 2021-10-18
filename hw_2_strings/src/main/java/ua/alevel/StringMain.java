@@ -8,11 +8,13 @@ public class StringMain {
     public static void main(String[] args) throws IOException {
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Enter string: ");
-        String input = bufferedReader.readLine();
+//        System.out.println("Enter string: ");
+//        String input = bufferedReader.readLine();
+//
+//        String result = StringHelperUtil.reverse(input);
+//        String result = StringHelperUtil.reverseBySubstring("hello world", "aaa");
+//        System.out.println("result = " + result);
 
-        StringHelperUtil.reverse(input, true);
 
-        System.out.println("input = " + input);
     }
 }

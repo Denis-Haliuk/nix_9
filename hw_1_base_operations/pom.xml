@@ -19,7 +19,7 @@
     </properties>
 
     <build>
-        <finalName>base_operations</finalName>
+        <finalName>hw_1_base_operations</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
