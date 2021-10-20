@@ -2,7 +2,8 @@ package ua.alevel;
 
 public class StringHelperUtil {
 
-    private static String errorMessage = "substring not found";
+    private static final String errorMessage = "substring not found";
+    private static final String errorIndex = "wrong indexes";
 
     private StringHelperUtil() {
     }
@@ -37,17 +38,39 @@ public class StringHelperUtil {
             if (isFound) {
                 int reversedLength = substring.length() / 2;
                 for (int j = 0; j < reversedLength; j++) {
-                    var temp = chars[i+j];
-                    chars[i+j] = chars[i+substring.length()-j-1];
-                    chars[i+substring.length()-j-1] = temp;
+                    var temp = chars[i + j];
+                    chars[i + j] = chars[i + substring.length() - j - 1];
+                    chars[i + substring.length() - j - 1] = temp;
                 }
                 isFoundSubstring = true;
             }
         }
 
-        return isFoundSubstring? String.valueOf(chars): errorMessage;
+        return isFoundSubstring ? String.valueOf(chars) : errorMessage;
     }
+
+    public static String reverseByIndex(String text, int firstIndex, int lastIndex) {
+
+        char[] chars = text.toCharArray();
+        int len = chars.length;
+        if (firstIndex > lastIndex || firstIndex > chars.length) {
+            return errorIndex;
+        } else {
+            for (int i = firstIndex; i < lastIndex; i++) {
+                char l = chars[i];
+                chars[i] = chars[len - i - 1];
+                chars[len - i - 1] = l;
+            }
+            text = String.valueOf(chars);
+        }
+        return text;
+
+
+    }
+
+
 }
+
 
 
 
