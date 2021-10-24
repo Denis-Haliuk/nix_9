@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FirstTask {
+
     public void firstTask() {
         System.out.println("First task!");
         Scanner scanner = new Scanner(System.in);

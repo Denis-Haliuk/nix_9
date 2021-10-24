@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class SecondTask {
+
     public void secondTask() {
         System.out.println("Second task!");
 
