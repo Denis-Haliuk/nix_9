@@ -7,6 +7,7 @@ import ua.alevel.thirdtask.ThirdTask;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
         FirstTask firstTask = new FirstTask();
         SecondTask secondTask = new SecondTask();

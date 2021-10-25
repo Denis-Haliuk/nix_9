@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class StringMain {
-    public static void main(String[] args) throws IOException {
 
+    public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("select your option");
         String position;
@@ -43,7 +43,6 @@ public class StringMain {
         runNavigation();
     }
 
-
     private static void basicReverse() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter your string: ");
@@ -73,6 +72,4 @@ public class StringMain {
         String result = StringHelperUtil.reverseByIndex(text, startIndex, endIndex);
         System.out.println("result = " + result);
     }
-
-
 }
