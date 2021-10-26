@@ -1,9 +1,9 @@
-package ua.alevel.firsttask;
+package ua.alevel.sumofallnumbersinstring;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FirstTask {
+public class SumOfAllNumbersInString {
 
     public void firstTask() {
         System.out.println("First task!");

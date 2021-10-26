@@ -1,8 +1,8 @@
-package ua.alevel.thirdtask;
+package ua.alevel.lessontime;
 
 import java.util.Scanner;
 
-public class ThirdTask {
+public class PrintLessonTimeByLessonNumber {
 
     public void thirdTask() {
         System.out.println("Third task!");

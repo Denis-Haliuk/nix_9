@@ -1,17 +1,17 @@
 package ua.alevel;
 
-import ua.alevel.firsttask.FirstTask;
-import ua.alevel.secondtask.SecondTask;
-import ua.alevel.thirdtask.ThirdTask;
+import ua.alevel.sumofallnumbersinstring.SumOfAllNumbersInString;
+import ua.alevel.amountofuniquechars.AmountOfUniqueChars;
+import ua.alevel.lessontime.PrintLessonTimeByLessonNumber;
 
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        FirstTask firstTask = new FirstTask();
-        SecondTask secondTask = new SecondTask();
-        ThirdTask thirdTask = new ThirdTask();
+        SumOfAllNumbersInString sumOfAllNumbersInString = new SumOfAllNumbersInString();
+        AmountOfUniqueChars amountOfUniqueChars = new AmountOfUniqueChars();
+        PrintLessonTimeByLessonNumber printLessonTimeByLessonNumber = new PrintLessonTimeByLessonNumber();
         int i = 0;
 
         Scanner scanner = new Scanner(System.in);
@@ -22,13 +22,13 @@ public class Main {
         i = scanner.nextInt();
         switch (i) {
             case 1:
-                firstTask.firstTask();
+                sumOfAllNumbersInString.firstTask();
                 break;
             case 2:
-                secondTask.secondTask();
+                amountOfUniqueChars.secondTask();
                 break;
             case 3:
-                thirdTask.thirdTask();
+                printLessonTimeByLessonNumber.thirdTask();
                 break;
 
         }

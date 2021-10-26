@@ -1,10 +1,10 @@
-package ua.alevel.secondtask;
+package ua.alevel.amountofuniquechars;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class SecondTask {
+public class AmountOfUniqueChars {
 
     public void secondTask() {
         System.out.println("Second task!");
