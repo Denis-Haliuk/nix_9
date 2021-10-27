@@ -1,7 +1,7 @@
 package ua.alevel.uniquesymbols;
 
 public class UniqueSymbolsInArray {
-    public void printUniqueSymbolsInArray() {
+    public static void printUniqueSymbolsInArray() {
         int[] numArray = {1, 4, 5, 1, 1, 3};
 
         for (int number : numArray) {
