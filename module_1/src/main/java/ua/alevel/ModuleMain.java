@@ -2,6 +2,7 @@ package ua.alevel;
 
 import ua.alevel.horsestep.CanHorseGoToEnteredCell;
 import ua.alevel.isstringvalid.IsStringValid;
+import ua.alevel.maxdepthoftree.TreeNodeUtil;
 import ua.alevel.trianglearea.TriangleAreaByThreePoints;
 import ua.alevel.uniquesymbols.UniqueSymbolsInArray;
 
@@ -10,23 +11,67 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ModuleMain {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         System.out.println("ModuleMain.main");
 
-//        System.out.println("Task 1 - find unique symbols in array");
-//        UniqueSymbolsInArray.printUniqueSymbolsInArray();
-//
-//        System.out.println("Task 2 - can horse go there?");
-//        CanHorseGoToEnteredCell.canHorseGoToEnteredCell();
-//
-//        System.out.println("Task 3 - calculate area of triangle by three points");
-//        TriangleAreaByThreePoints.findTriangleAreaByThreePoints();
-
-        System.out.println("Task 4 - is string valid?)");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        boolean isStringValid = IsStringValid.isValid(bufferedReader.readLine());
-        System.out.println("isStringValid = " + isStringValid);
+        System.out.println("Module 1 - Select task: ");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("select your option");
+        String position;
+        try {
+            runNavigation();
+            while ((position = reader.readLine()) != null) {
+                if (position.equals("0")) {
+                    System.exit(0);
+                }
+                switcher(position);
+            }
+        } catch (IOException e) {
+            System.out.println("problem: = " + e.getMessage());
+        }
 
 
     }
+
+
+    private static void runNavigation() {
+        System.out.println();
+        System.out.println("Task 1 - find unique symbols in array");
+        System.out.println("Task 2 - can horse go there?");
+        System.out.println("Task 3 - calculate area of triangle by three points");
+        System.out.println("Task 4 - is string valid?)");
+        System.out.println("Task 5 - get max tree length");
+        System.out.println("0 - exit");
+        System.out.println();
+    }
+
+    private static void switcher(String position) throws IOException {
+        switch (position) {
+            case "1" -> UniqueSymbolsInArray.printUniqueSymbolsInArray();
+            case "2" -> CanHorseGoToEnteredCell.canHorseGoToEnteredCell();
+            case "3" -> TriangleAreaByThreePoints.findTriangleAreaByThreePoints();
+            case "4" -> isStringValid();
+            case "5" -> calculateMaxLengthOfTree();
+        }
+        runNavigation();
+    }
+
+    private static void isStringValid() throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Enter your string: ");
+        boolean isStringValid = IsStringValid.isValid(bufferedReader.readLine());
+        System.out.println("isStringValid = " + isStringValid);
+    }
+
+    private static void calculateMaxLengthOfTree() {
+        var treeNodeUtil = new TreeNodeUtil();
+        treeNodeUtil.consoleOutput();
+        System.out.println("maxLength = " + treeNodeUtil.getMaxLength());
+    }
+
+
+
+
+
+
 }
