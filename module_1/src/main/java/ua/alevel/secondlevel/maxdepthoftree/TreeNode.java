@@ -1,4 +1,4 @@
-package ua.alevel.maxdepthoftree;
+package ua.alevel.secondlevel.maxdepthoftree;
 
 public class TreeNode {
     int val;

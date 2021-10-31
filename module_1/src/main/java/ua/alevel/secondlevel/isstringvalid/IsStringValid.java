@@ -1,4 +1,4 @@
-package ua.alevel.isstringvalid;
+package ua.alevel.secondlevel.isstringvalid;
 
 import java.util.Stack;
 
@@ -31,10 +31,6 @@ public class IsStringValid {
                 break;
             }
         }
-        if (c.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return c.isEmpty();
     }
 }

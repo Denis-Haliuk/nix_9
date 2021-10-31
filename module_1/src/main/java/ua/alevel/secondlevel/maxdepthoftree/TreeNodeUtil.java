@@ -1,4 +1,4 @@
-package ua.alevel.maxdepthoftree;
+package ua.alevel.secondlevel.maxdepthoftree;
 
 public class TreeNodeUtil {
 
@@ -33,7 +33,7 @@ public class TreeNodeUtil {
     }
 
     private void consoleOutputNode(TreeNode root, int tabNumber) {
-
+        System.out.println("Your tree: ");
         String output = "\t".repeat(Math.max(0, tabNumber)) +
                 root.getVal() + ":\n";
         System.out.println(output);
@@ -65,6 +65,4 @@ public class TreeNodeUtil {
 
         treeRoot.getLeft().getLeft().getLeft().getRight().setLeft(11);
     }
-
-
 }

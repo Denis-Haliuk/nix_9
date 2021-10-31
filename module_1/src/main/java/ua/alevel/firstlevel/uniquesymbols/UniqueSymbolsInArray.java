@@ -1,8 +1,9 @@
-package ua.alevel.uniquesymbols;
+package ua.alevel.firstlevel.uniquesymbols;
 
 public class UniqueSymbolsInArray {
     public static void printUniqueSymbolsInArray() {
         int[] numArray = {1, 4, 5, 1, 1, 3};
+        System.out.print("your array: ");
 
         for (int number : numArray) {
             System.out.print(number + " ");

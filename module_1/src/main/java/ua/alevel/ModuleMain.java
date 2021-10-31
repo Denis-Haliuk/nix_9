@@ -1,10 +1,11 @@
 package ua.alevel;
 
-import ua.alevel.horsestep.CanHorseGoToEnteredCell;
-import ua.alevel.isstringvalid.IsStringValid;
-import ua.alevel.maxdepthoftree.TreeNodeUtil;
-import ua.alevel.trianglearea.TriangleAreaByThreePoints;
-import ua.alevel.uniquesymbols.UniqueSymbolsInArray;
+import ua.alevel.firstlevel.horsestep.CanHorseGoToEnteredCell;
+import ua.alevel.secondlevel.isstringvalid.IsStringValid;
+import ua.alevel.secondlevel.maxdepthoftree.TreeNodeUtil;
+import ua.alevel.firstlevel.trianglearea.TriangleAreaByThreePoints;
+import ua.alevel.firstlevel.uniquesymbols.UniqueSymbolsInArray;
+import ua.alevel.thirdlevel.gameoflife.GameOfLife;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,18 +30,16 @@ public class ModuleMain {
         } catch (IOException e) {
             System.out.println("problem: = " + e.getMessage());
         }
-
-
     }
-
 
     private static void runNavigation() {
         System.out.println();
         System.out.println("Task 1 - find unique symbols in array");
         System.out.println("Task 2 - can horse go there?");
         System.out.println("Task 3 - calculate area of triangle by three points");
-        System.out.println("Task 4 - is string valid?)");
+        System.out.println("Task 4 - is string valid?");
         System.out.println("Task 5 - get max tree length");
+        System.out.println("Task 6 - Game of Life");
         System.out.println("0 - exit");
         System.out.println();
     }
@@ -52,6 +51,7 @@ public class ModuleMain {
             case "3" -> TriangleAreaByThreePoints.findTriangleAreaByThreePoints();
             case "4" -> isStringValid();
             case "5" -> calculateMaxLengthOfTree();
+            case "6" -> GameOfLife.runGame();
         }
         runNavigation();
     }
@@ -68,10 +68,4 @@ public class ModuleMain {
         treeNodeUtil.consoleOutput();
         System.out.println("maxLength = " + treeNodeUtil.getMaxLength());
     }
-
-
-
-
-
-
 }
