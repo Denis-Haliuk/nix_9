@@ -1,28 +1,23 @@
 package ua.alevel;
 
-import java.util.Arrays;
-import java.util.Random;
-
 public class CollectionMain {
     public static void main(String[] args) {
         System.out.println("CollectionMain.main");
 
-        MathSet mathSet = new MathSet();
+        Integer[] ints = {1,2,3,4,3};
+        Integer[] ints1 = {125, 11};
 
-        for (int i = 0; i < 50; i++) {
-            mathSet.add(i);
-        }
-
-        Number[] numbers = mathSet.toArray(0, 10);
-        Number[] clearNumbers = {34};
-
+        MathSet mathSet = new MathSetImpl(ints, ints);
         System.out.println("mathSet = " + mathSet);
-        for (Number number: numbers) {
-            System.out.println("numbers = " + number);
-        }
+        MathSet mathSet1 = new MathSetImpl(ints1, ints1);
+        System.out.println("mathSet1 = " + mathSet1);
 
-        mathSet.clear(clearNumbers);
+        mathSet.add(7,8,9,66,1L, 5.23, 3);
         System.out.println("mathSet = " + mathSet);
+
+        mathSet.join(mathSet1);
+        System.out.println("mathSet = " + mathSet);
+
 
     }
 }
