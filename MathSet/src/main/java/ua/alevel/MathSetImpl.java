@@ -34,8 +34,8 @@ public class MathSetImpl implements MathSet {
 
     public MathSetImpl(Number[]... numbers) {
         int elemCount = 0;
-        for (int i = 0; i < numbers.length; i++) {
-            elemCount += numbers[i].length;
+        for (Number[] number : numbers) {
+            elemCount += number.length;
         }
 
         capacity = elemCount + CAPACITY_STEP;
@@ -64,8 +64,8 @@ public class MathSetImpl implements MathSet {
 
     public MathSetImpl(MathSet... mathSet) {
         int elemCount = 0;
-        for (int i = 0; i < mathSet.length; i++) {
-            elemCount = mathSet[i].getSize();
+        for (MathSet set : mathSet) {
+            elemCount = set.getSize();
         }
 
         capacity = elemCount + CAPACITY_STEP;
@@ -84,12 +84,7 @@ public class MathSetImpl implements MathSet {
 
     @Override
     public void add(Number n) {
-        if (isContains(n)) return;
-
-        int indexOfLast = size - 1;
-        grow();
-        numbers[indexOfLast + 1] = n;
-        size++;
+        add(new Number[]{n});
     }
 
     @Override
@@ -113,38 +108,69 @@ public class MathSetImpl implements MathSet {
 
     @Override
     public void join(MathSet ms) {
-        Number[] numbersDuplicate = getDuplicate();
-        capacity += ms.getSize() + CAPACITY_STEP;
-
-        numbers = new Number[capacity];
-        System.arraycopy(numbersDuplicate, 0, numbers, 0, size);
-
-        for (int i = 0, index = size; i < ms.getSize(); i++) {
-            if (isContains(ms.get(i))) {
-                continue;
-            }
-            this.numbers[index] = ms.get(i);
-            index++;
-            size++;
-        }
+        join(new MathSet[]{ms});
     }
 
     @Override
     public void join(MathSet... ms) {
+        int elemCount = 0;
 
+        Number[] numbersDuplicate = getDuplicate();
+
+        for (int i = 0; i < ms.length; i++) {
+            elemCount += ms[i].getSize();
+        }
+
+        capacity += elemCount + CAPACITY_STEP;
+        numbers = new Number[capacity];
+        System.arraycopy(numbersDuplicate, 0, numbers, 0, size);
+
+        for (int i = 0, index = size; i < ms.length; i++) {
+            for (int j = 0; j < ms[i].getSize(); j++) {
+                if (isContains(ms[i].get(j))) {
+                    continue;
+                }
+                this.numbers[index] = ms[i].get(j);
+                index++;
+                size++;
+            }
+        }
     }
 
     @Override
     public void intersection(MathSet ms) {
-
+        intersection(new MathSet[]{ms});
     }
 
     @Override
     public void intersection(MathSet... ms) {
+        Number[] intersectionResult = new Number[this.getSize()];
 
+        int size = 0;
+
+        for (int i = 0, index = 0; i < this.size; i++) {
+            boolean isAllContain = true;
+            for (int j = 0; j < ms.length; j++) {
+                if (!ms[j].isContains(this.get(i))) {
+                    isAllContain = false;
+                    break;
+                }
+            }
+            if (isAllContain) {
+                intersectionResult[index] = this.get(i);
+                index++;
+                size++;
+            }
+        }
+
+        capacity = intersectionResult.length + CAPACITY_STEP;
+        numbers = new Number[capacity];
+        System.arraycopy(intersectionResult, 0, numbers, 0, size);
+        this.size = size;
     }
 
-    private boolean isContains(Number number) {
+    @Override
+    public boolean isContains(Number number) {
         for (int i = 0; i < size; i++) {
             Number value = numbers[i];
             if (value.equals(number)) {
@@ -154,15 +180,6 @@ public class MathSetImpl implements MathSet {
         return false;
     }
 
-    private void grow() {
-        if (capacity - size <= 2) {
-            Number[] numbersDuplicate = getDuplicate();
-            numbers = new Number[capacity + CAPACITY_STEP];
-            System.arraycopy(numbersDuplicate, 0, numbers, 0, capacity);
-            capacity += CAPACITY_STEP;
-        }
-    }
-
     @Override
     public Number get(int index) {
         return numbers[index];
@@ -170,24 +187,24 @@ public class MathSetImpl implements MathSet {
 
     @Override
     public Number getMax() {
-        Number max = numbers[0];
-        for (int i = 1; i < size; i++) {
-            if (numbers[i].doubleValue() > max.doubleValue()) {
-                max = numbers[i];
-            }
-        }
-        return max;
+        return getMinOrMax(false);
     }
 
     @Override
     public Number getMin() {
-        Number min = numbers[0];
+        return getMinOrMax(true);
+    }
+
+    private Number getMinOrMax(boolean isGetMin) {
+        Number minOrMax = numbers[0];
         for (int i = 1; i < size; i++) {
-            if (numbers[i].doubleValue() < min.doubleValue()) {
-                min = numbers[i];
+            boolean isMinOrMax = isGetMin ? (numbers[i].doubleValue() < minOrMax.doubleValue())
+                    : (numbers[i].doubleValue() > minOrMax.doubleValue());
+            if (isMinOrMax) {
+                minOrMax = numbers[i];
             }
         }
-        return min;
+        return minOrMax;
     }
 
     @Override
@@ -203,7 +220,7 @@ public class MathSetImpl implements MathSet {
     @Override
     public Number getMedian() {
         Number[] numbersDuplicate = getDuplicate();
-        sortAsc(numbersDuplicate);
+        sort(numbersDuplicate, 0, size - 1, true);
         int medianIndex = size / 2;
 
         if (size % 2 == 0) {
@@ -215,17 +232,22 @@ public class MathSetImpl implements MathSet {
 
     @Override
     public void sortAsc() {
-        sortAsc(numbers);
+        sort(numbers, 0, size - 1, true);
     }
 
     @Override
     public void sortAsc(int firstIndex, int lastIndex) {
-
+        sort(numbers, firstIndex, lastIndex, true);
     }
 
     @Override
     public void sortAsc(Number value) {
-
+        for (int i = 0; i < size; i++) {
+            if (numbers[i].equals(value)) {
+                sort(numbers, i, size - 1, true);
+                break;
+            }
+        }
     }
 
     @Override
@@ -233,39 +255,38 @@ public class MathSetImpl implements MathSet {
         return size;
     }
 
-
-    private void sortAsc(Number[] numbers) {
-        for (int i = size - 1; i >= 1; i--) {
-            for (int j = 0; j < i; j++) {
-                if (numbers[j].doubleValue() > numbers[j + 1].doubleValue()) {
-                    Number temp = numbers[j];
-                    numbers[j] = numbers[j + 1];
-                    numbers[j + 1] = temp;
-                }
-            }
-        }
-    }
-
+    @Override
     public void sortDesc() {
-        for (int i = size - 1; i >= 1; i--) {
-            for (int j = 0; j < i; j++) {
-                if (numbers[j].doubleValue() < numbers[j + 1].doubleValue()) {
-                    Number temp = numbers[j];
-                    numbers[j] = numbers[j + 1];
-                    numbers[j + 1] = temp;
-                }
-            }
-        }
+        sort(numbers, 0, size - 1, false);
     }
 
     @Override
     public void sortDesc(int firstIndex, int lastIndex) {
-
+        sort(numbers, firstIndex, lastIndex, false);
     }
 
     @Override
     public void sortDesc(Number value) {
+        for (int i = 0; i < size; i++) {
+            if (numbers[i].equals(value)) {
+                sort(numbers, i, size - 1, false);
+                break;
+            }
+        }
+    }
 
+    private void sort(Number[] numbers, int firstIndex, int lastIndex, boolean isAsc) {
+        for (int i = lastIndex; i >= firstIndex; i--) {
+            for (int j = firstIndex; j < i; j++) {
+                boolean hasToSwap = isAsc ? (numbers[j].doubleValue() > numbers[j + 1].doubleValue())
+                        : (numbers[j].doubleValue() < numbers[j + 1].doubleValue());
+                if (hasToSwap) {
+                    Number temp = numbers[j];
+                    numbers[j] = numbers[j + 1];
+                    numbers[j + 1] = temp;
+                }
+            }
+        }
     }
 
     @Override
@@ -282,7 +303,10 @@ public class MathSetImpl implements MathSet {
 
     @Override
     public MathSet cut(int firstIndex, int lastIndex) {
-        return null;
+        Number[] numbers = new Number[lastIndex - firstIndex + 1];
+        System.arraycopy(this.numbers, firstIndex, numbers, 0, lastIndex - firstIndex + 1);
+
+        return new MathSetImpl(numbers);
     }
 
     @Override
@@ -337,13 +361,12 @@ public class MathSetImpl implements MathSet {
         return numbersDuplicate;
     }
 
-
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("[");
         for (int i = 0; i < size; i++) {
-            stringBuilder.append(numbers[i]).append(i != size - 1 ? ", " : "]");
+            stringBuilder.append(numbers[i]).append(i != size - 1 ? ", " : "");
         }
-        return stringBuilder.toString();
+        return stringBuilder.append("]").toString();
     }
 }

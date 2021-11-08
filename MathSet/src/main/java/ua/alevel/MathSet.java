@@ -18,6 +18,8 @@ public interface MathSet {
     void sortAsc(int firstIndex, int lastIndex);
     void sortAsc(Number value);
 
+    boolean isContains(Number number);
+
     int getSize();
 
     Number get(int index);
