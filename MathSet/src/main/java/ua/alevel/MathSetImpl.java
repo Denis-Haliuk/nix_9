@@ -3,6 +3,11 @@ package ua.alevel;
 public class MathSetImpl implements MathSet {
 
     private int size;
+
+    public int getCapacity() {
+        return capacity;
+    }
+
     private int capacity;
     private static final int CAPACITY_STEP = 10;
 
@@ -23,11 +28,12 @@ public class MathSetImpl implements MathSet {
     public MathSetImpl(Number[] numbers) {
         capacity = numbers.length + CAPACITY_STEP;
         this.numbers = new Number[capacity];
-        for (int i = 0; i < numbers.length; i++) {
+        for (int i = 0, thisIndex = 0; i < numbers.length; i++) {
             if (isContains(numbers[i])) {
                 continue;
             }
-            this.numbers[i] = numbers[i];
+            this.numbers[thisIndex] = numbers[i];
+            thisIndex++;
             size++;
         }
     }
@@ -276,16 +282,21 @@ public class MathSetImpl implements MathSet {
     }
 
     private void sort(Number[] numbers, int firstIndex, int lastIndex, boolean isAsc) {
-        for (int i = lastIndex; i >= firstIndex; i--) {
-            for (int j = firstIndex; j < i; j++) {
-                boolean hasToSwap = isAsc ? (numbers[j].doubleValue() > numbers[j + 1].doubleValue())
-                        : (numbers[j].doubleValue() < numbers[j + 1].doubleValue());
-                if (hasToSwap) {
-                    Number temp = numbers[j];
-                    numbers[j] = numbers[j + 1];
-                    numbers[j + 1] = temp;
+
+        try {
+            for (int i = lastIndex; i >= firstIndex; i--) {
+                for (int j = firstIndex; j < i; j++) {
+                    boolean hasToSwap = isAsc ? (numbers[j].doubleValue() > numbers[j + 1].doubleValue())
+                            : (numbers[j].doubleValue() < numbers[j + 1].doubleValue());
+                    if (hasToSwap) {
+                        Number temp = numbers[j];
+                        numbers[j] = numbers[j + 1];
+                        numbers[j + 1] = temp;
+                    }
                 }
             }
+        } catch (NullPointerException e) {
+            System.out.println("wrong index");
         }
     }
 
