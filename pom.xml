@@ -30,6 +30,7 @@
         <module>hw_4_logs_and_test</module>
         <module>hw_5_collection</module>
         <module>MathSet</module>
+        <module>hw_6_calendar</module>
     </modules>
 
     <properties>
