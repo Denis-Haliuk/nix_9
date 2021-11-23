@@ -30,7 +30,8 @@
         <module>hw_4_logs_and_test</module>
         <module>hw_5_collection</module>
         <module>MathSet</module>
-        <module>hw_6_calendar</module>
+        <module>hw_6_exception</module>
+        <module>hw_7_ionio</module>
     </modules>
 
     <properties>
