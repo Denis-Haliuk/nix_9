@@ -1,16 +1,17 @@
 package ua.alevel.dao.impl;
 
-import ua.alevel.config.ApplicationConfig;
+
 import ua.alevel.dao.EmployeeDao;
 import ua.alevel.db.DepartmentDB;
 import ua.alevel.db.EmployeeDB;
+import ua.alevel.db.impl.EmployeeListDBImpl;
 import ua.alevel.entity.Employee;
 
 import java.util.Collection;
 
 public class EmployeeDaoImpl implements EmployeeDao {
 
-    private final EmployeeDB instanceDB = ApplicationConfig.getImpl(EmployeeDB.class);
+    private final EmployeeDB instanceDB = new EmployeeListDBImpl();
 
     @Override
     public void create(Employee entity) {

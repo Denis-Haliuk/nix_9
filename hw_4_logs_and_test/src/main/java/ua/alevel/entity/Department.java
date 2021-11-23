@@ -15,6 +15,7 @@ public class Department extends BaseEntity {
     @Override
     public String toString() {
         return "Department{" +
+                "id='" + super.getId() + '\'' +
                 "departmentName='" + departmentName + '\'' +
                 '}';
     }

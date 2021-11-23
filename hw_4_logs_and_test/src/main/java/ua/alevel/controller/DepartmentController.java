@@ -1,8 +1,10 @@
 package ua.alevel.controller;
 
-import ua.alevel.config.ApplicationConfig;
+
 import ua.alevel.entity.Department;
 import ua.alevel.service.DepartmentService;
+import ua.alevel.service.impl.DepartmentServiceImpl;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,7 +12,7 @@ import java.util.Collection;
 
 public class DepartmentController {
 
-    private final DepartmentService departmentService = ApplicationConfig.getImpl(DepartmentService.class);
+    private final DepartmentService departmentService = new DepartmentServiceImpl();
 
     public void run() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -22,7 +24,7 @@ public class DepartmentController {
                 crud(position, reader);
                 position = reader.readLine();
                 if (position.equals("0")) {
-                    System.exit(0);
+                    break;
                 }
                 crud(position, reader);
             }

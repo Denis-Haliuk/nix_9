@@ -37,7 +37,7 @@ public class EmployeeListDBImpl implements EmployeeDB {
         current.setName(entity.getName());
         current.setAge(entity.getAge());
         current.setEmail(entity.getEmail());
-        current.setDepartmentId(entity.getDepartmentId());
+        current.setDepartment(entity.getDepartment());
     }
 
     @Override

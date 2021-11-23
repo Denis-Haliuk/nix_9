@@ -1,7 +1,8 @@
 package ua.alevel.service.impl;
 
-import ua.alevel.config.ApplicationConfig;
+
 import ua.alevel.dao.EmployeeDao;
+import ua.alevel.dao.impl.EmployeeDaoImpl;
 import ua.alevel.entity.Employee;
 import ua.alevel.service.EmployeeService;
 
@@ -9,7 +10,7 @@ import java.util.Collection;
 
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final EmployeeDao employeeDao = ApplicationConfig.getImpl(EmployeeDao.class);
+    private final EmployeeDao employeeDao = new EmployeeDaoImpl();
 
     @Override
     public void create(Employee entity) {

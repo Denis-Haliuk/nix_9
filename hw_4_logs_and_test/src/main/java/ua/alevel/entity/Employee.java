@@ -6,7 +6,7 @@ public class Employee extends BaseEntity{
     private String email;
     private int age;
 
-    private String departmentId;
+    private Department department;
 
     public String getName() {
         return name;
@@ -32,12 +32,12 @@ public class Employee extends BaseEntity{
         this.age = age;
     }
 
-    public String getDepartmentId() {
-        return departmentId;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @Override

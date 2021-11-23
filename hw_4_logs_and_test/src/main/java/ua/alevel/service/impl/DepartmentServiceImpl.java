@@ -1,7 +1,8 @@
 package ua.alevel.service.impl;
 
-import ua.alevel.config.ApplicationConfig;
+
 import ua.alevel.dao.DepartmentDao;
+import ua.alevel.dao.impl.DepartmentDaoImpl;
 import ua.alevel.entity.Department;
 import ua.alevel.service.DepartmentService;
 
@@ -9,7 +10,7 @@ import java.util.Collection;
 
 public class DepartmentServiceImpl implements DepartmentService {
 
-    private final DepartmentDao departmentDao = ApplicationConfig.getImpl(DepartmentDao.class);
+    private final DepartmentDao departmentDao = new DepartmentDaoImpl();
 
     @Override
     public void create(Department entity) {

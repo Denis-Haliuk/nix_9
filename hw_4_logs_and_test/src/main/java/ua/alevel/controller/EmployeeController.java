@@ -1,11 +1,11 @@
 package ua.alevel.controller;
 
-import ua.alevel.config.ApplicationConfig;
-import ua.alevel.db.impl.DepartmentListDBImpl;
-import ua.alevel.entity.Department;
+
 import ua.alevel.entity.Employee;
 import ua.alevel.service.DepartmentService;
 import ua.alevel.service.EmployeeService;
+import ua.alevel.service.impl.DepartmentServiceImpl;
+import ua.alevel.service.impl.EmployeeServiceImpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,8 +13,8 @@ import java.io.InputStreamReader;
 import java.util.Collection;
 
 public class EmployeeController {
-    private final DepartmentService departmentService = ApplicationConfig.getImpl(DepartmentService.class);
-    private final EmployeeService employeeService = ApplicationConfig.getImpl(EmployeeService.class);
+    private final DepartmentService departmentService = new DepartmentServiceImpl();
+    private final EmployeeService employeeService = new EmployeeServiceImpl();
 
     public void run() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -26,7 +26,7 @@ public class EmployeeController {
                 crud(position, reader);
                 position = reader.readLine();
                 if (position.equals("0")) {
-                    System.exit(0);
+                    break;
                 }
                 crud(position, reader);
             }
@@ -67,16 +67,17 @@ public class EmployeeController {
             System.out.println("Please, enter employee age");
             String age = reader.readLine();
             int ageInt = Integer.parseInt(age);
-            System.out.println("Please, enter department id");
-            String departmentId = reader.readLine();
+            System.out.println("Please, enter department id ");
+            String department = reader.readLine();
+
 
             Employee employee = new Employee();
             employee.setName(name);
             employee.setEmail(email);
             employee.setAge(Integer.parseInt(String.valueOf(ageInt)));
 
-            if (departmentService.findById(departmentId) != null) {
-                employee.setDepartmentId(departmentId);
+            if (departmentService.findById(department) != null) {
+                employee.setDepartment(departmentService.findById(department));
             } else {
                 System.out.println("department not found");
                 return;
@@ -102,7 +103,7 @@ public class EmployeeController {
             String age = reader.readLine();
             int ageInt = Integer.parseInt(age);
             System.out.println("Please, enter department id");
-            String departmentId = reader.readLine();
+            String department = reader.readLine();
 
             Employee employee = new Employee();
             employee.setId(id);
@@ -110,8 +111,8 @@ public class EmployeeController {
             employee.setEmail(email);
             employee.setAge(Integer.parseInt(String.valueOf(ageInt)));
 
-            if (departmentService.findById(departmentId) != null) {
-                employee.setDepartmentId(departmentId);
+            if (departmentService.findById(department) != null) {
+                employee.setDepartment(departmentService.findById(department));
             } else {
                 System.out.println("department not found");
                 return;

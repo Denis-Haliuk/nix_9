@@ -1,10 +1,10 @@
 package ua.alevel;
 
-import ua.alevel.controller.UserController;
+import ua.alevel.controller.BaseController;
 
 public class NextOOPMain {
 
     public static void main(String[] args) {
-        new UserController().run();
+        new BaseController().run();
     }
 }

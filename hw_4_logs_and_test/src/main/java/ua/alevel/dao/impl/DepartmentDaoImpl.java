@@ -1,16 +1,15 @@
 package ua.alevel.dao.impl;
 
-import ua.alevel.config.ApplicationConfig;
 import ua.alevel.dao.DepartmentDao;
 import ua.alevel.db.DepartmentDB;
-import ua.alevel.db.UserDB;
+import ua.alevel.db.impl.DepartmentListDBImpl;
 import ua.alevel.entity.Department;
 
 import java.util.Collection;
 
 public class DepartmentDaoImpl implements DepartmentDao {
 
-    private final DepartmentDB instanceDB = ApplicationConfig.getImpl(DepartmentDB.class);
+    private final DepartmentDB instanceDB = new DepartmentListDBImpl();
 
     @Override
     public void create(Department entity) {

@@ -11,7 +11,7 @@ public final class GenerateIdUtil {
 
     public static String generateId(Collection<? extends BaseEntity> items) {
         String id = UUID.randomUUID().toString();
-        if (items.stream().anyMatch(user -> user.getId().equals(id))) {
+        if (items.stream().anyMatch(entity -> entity.getId().equals(id))) {
             return generateId(items);
         }
         return id;
