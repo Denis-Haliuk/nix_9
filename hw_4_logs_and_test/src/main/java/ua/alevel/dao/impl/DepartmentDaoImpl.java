@@ -4,8 +4,10 @@ import ua.alevel.dao.DepartmentDao;
 import ua.alevel.db.DepartmentDB;
 import ua.alevel.db.impl.DepartmentListDBImpl;
 import ua.alevel.entity.Department;
+import ua.alevel.entity.Employee;
 
 import java.util.Collection;
+import java.util.List;
 
 public class DepartmentDaoImpl implements DepartmentDao {
 
@@ -23,6 +25,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     public void delete(String id) {
+
         instanceDB.delete(id);
     }
 
@@ -34,5 +37,10 @@ public class DepartmentDaoImpl implements DepartmentDao {
     @Override
     public Collection<Department> findAll() {
         return instanceDB.findAll();
+    }
+
+    @Override
+    public List<Employee> getEmployeesByDepartment(String id) {
+        return instanceDB.getEmployeesByDepartment(id);
     }
 }

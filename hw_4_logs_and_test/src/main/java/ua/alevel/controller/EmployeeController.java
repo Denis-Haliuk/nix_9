@@ -1,10 +1,9 @@
 package ua.alevel.controller;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.alevel.entity.Employee;
-import ua.alevel.service.DepartmentService;
 import ua.alevel.service.EmployeeService;
-import ua.alevel.service.impl.DepartmentServiceImpl;
 import ua.alevel.service.impl.EmployeeServiceImpl;
 
 import java.io.BufferedReader;
@@ -13,7 +12,7 @@ import java.io.InputStreamReader;
 import java.util.Collection;
 
 public class EmployeeController {
-    private final DepartmentService departmentService = new DepartmentServiceImpl();
+    private static final Logger LOGGER_ERROR = LoggerFactory.getLogger("error");
     private final EmployeeService employeeService = new EmployeeServiceImpl();
 
     public void run() {
@@ -23,8 +22,6 @@ public class EmployeeController {
         try {
             runNavigation();
             while ((position = reader.readLine()) != null) {
-                crud(position, reader);
-                position = reader.readLine();
                 if (position.equals("0")) {
                     break;
                 }
@@ -70,29 +67,21 @@ public class EmployeeController {
             System.out.println("Please, enter department id ");
             String department = reader.readLine();
 
-
             Employee employee = new Employee();
             employee.setName(name);
             employee.setEmail(email);
             employee.setAge(Integer.parseInt(String.valueOf(ageInt)));
-
-            if (departmentService.findById(department) != null) {
-                employee.setDepartment(departmentService.findById(department));
-            } else {
-                System.out.println("department not found");
-                return;
-            }
+            employee.setDepartment(employeeService.tryGetDepartment(department));
             employeeService.create(employee);
-        } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+        } catch (IOException | NumberFormatException e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
         }
     }
-
 
     private void update(BufferedReader reader) {
         System.out.println("EmployeeController.update");
         try {
-
             System.out.println("Please, enter employee id");
             String id = reader.readLine();
             System.out.println("Please, enter employee name");
@@ -110,16 +99,11 @@ public class EmployeeController {
             employee.setName(name);
             employee.setEmail(email);
             employee.setAge(Integer.parseInt(String.valueOf(ageInt)));
-
-            if (departmentService.findById(department) != null) {
-                employee.setDepartment(departmentService.findById(department));
-            } else {
-                System.out.println("department not found");
-                return;
-            }
-            employeeService.create(employee);
-        } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+            employee.setDepartment(employeeService.tryGetDepartment(department));
+            employeeService.update(employee);
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
         }
     }
 
@@ -129,8 +113,10 @@ public class EmployeeController {
             System.out.println("Please, enter id");
             String id = reader.readLine();
             employeeService.delete(id);
-        } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
         }
     }
 
@@ -140,21 +126,30 @@ public class EmployeeController {
             System.out.println("Please, enter id");
             String id = reader.readLine();
             Employee employee = employeeService.findById(id);
+            if(employee == null) {
+                return;
+            }
             System.out.println("employee = " + employee);
-        } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
         }
     }
 
     private void findAll(BufferedReader reader) {
         System.out.println("EmployeeController.findAll");
-        Collection<Employee> employees = employeeService.findAll();
-        if (employees != null && employees.size() != 0) {
-            for (Employee employee : employees) {
-                System.out.println("employee = " + employee);
+        try {
+            Collection<Employee> employees = employeeService.findAll();
+            if (employees != null && employees.size() != 0) {
+                for (Employee employee : employees) {
+                    System.out.println("employee = " + employee);
+                }
+            } else {
+                System.out.println("employees empty");
             }
-        } else {
-            System.out.println("employees empty");
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
         }
     }
 }

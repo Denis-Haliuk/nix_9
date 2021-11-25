@@ -1,7 +1,9 @@
 package ua.alevel.controller;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.alevel.entity.Department;
+import ua.alevel.entity.Employee;
 import ua.alevel.service.DepartmentService;
 import ua.alevel.service.impl.DepartmentServiceImpl;
 
@@ -9,8 +11,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collection;
+import java.util.List;
 
 public class DepartmentController {
+
+    private static final Logger LOGGER_ERROR = LoggerFactory.getLogger("error");
 
     private final DepartmentService departmentService = new DepartmentServiceImpl();
 
@@ -21,8 +26,6 @@ public class DepartmentController {
         try {
             runNavigation();
             while ((position = reader.readLine()) != null) {
-                crud(position, reader);
-                position = reader.readLine();
                 if (position.equals("0")) {
                     break;
                 }
@@ -40,6 +43,7 @@ public class DepartmentController {
         System.out.println("if you want delete department, please enter 3");
         System.out.println("if you want findById department, please enter 4");
         System.out.println("if you want findAll department, please enter 5");
+        System.out.println("if you want findAllEmployeesByDepartment please enter 6");
         System.out.println("if you want exit, please enter 0");
         System.out.println();
     }
@@ -51,6 +55,7 @@ public class DepartmentController {
             case "3" -> delete(reader);
             case "4" -> findById(reader);
             case "5" -> findAll(reader);
+            case "6" -> findAllEmployeesByDepartment(reader);
         }
         runNavigation();
     }
@@ -64,8 +69,9 @@ public class DepartmentController {
             Department department = new Department();
             department.setDepartmentName(name);
             departmentService.create(department);
-        } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
         }
     }
 
@@ -81,8 +87,9 @@ public class DepartmentController {
             department.setId(id);
             department.setDepartmentName(name);
             departmentService.update(department);
-        } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
         }
     }
 
@@ -92,8 +99,9 @@ public class DepartmentController {
             System.out.println("Please, enter id");
             String id = reader.readLine();
             departmentService.delete(id);
-        } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
         }
     }
 
@@ -103,9 +111,13 @@ public class DepartmentController {
             System.out.println("Please, enter id");
             String id = reader.readLine();
             Department department = departmentService.findById(id);
+            if (department == null) {
+                return;
+            }
             System.out.println("department = " + department);
-        } catch (IOException e) {
-            System.out.println("problem: = " + e.getMessage());
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
         }
     }
 
@@ -118,6 +130,23 @@ public class DepartmentController {
             }
         } else {
             System.out.println("departments empty");
+        }
+    }
+
+    private void findAllEmployeesByDepartment(BufferedReader reader) {
+        System.out.println("DepartmentController.findAllEmployeesByDepartment");
+        try {
+            System.out.println("Please, enter id");
+            String id = reader.readLine();
+            List<Employee> department = departmentService.getEmployeesByDepartment(id);
+            if (department == null) {
+                throw new RuntimeException("employees not found");
+            }
+            System.out.println("department = " + department);
+
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
         }
     }
 }

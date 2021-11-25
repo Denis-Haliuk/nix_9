@@ -1,56 +1,97 @@
 package ua.alevel.db.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.alevel.db.DepartmentDB;
+import ua.alevel.db.GeneralDB;
 import ua.alevel.entity.Department;
+import ua.alevel.entity.Employee;
 import ua.alevel.util.GenerateIdUtil;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DepartmentListDBImpl implements DepartmentDB {
 
-    private final List<Department> departmentList;
-    private static DepartmentListDBImpl instance;
+    private static final Logger LOGGER_ERROR = LoggerFactory.getLogger("error");
+    private final GeneralDB generalDB;
 
     public DepartmentListDBImpl() {
         System.out.println("DepartmentListDBImpl.DepartmentListDBImpl");
-        departmentList = new ArrayList<>();
-    }
-
-    public static DepartmentListDBImpl getInstance() {
-        if (instance == null) {
-            instance = new DepartmentListDBImpl();
-        }
-        return instance;
+        generalDB = GeneralDB.getInstance();
     }
 
     @Override
     public void create(Department entity) {
-        entity.setId(GenerateIdUtil.generateId(departmentList));
-        departmentList.add(entity);
+        try {
+            entity.setId(GenerateIdUtil.generateId(generalDB.getDepartmentList()));
+            generalDB.getDepartmentList().add(entity);
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
+        }
+
     }
 
     @Override
     public void update(Department entity) {
-        Department current = findById(entity.getId());
-        current.setDepartmentName(entity.getDepartmentName());
+        try {
+            Department current = findById(entity.getId());
+            if(current == null) {
+                throw new RuntimeException("department not found");
+            }
+            current.setDepartmentName(entity.getDepartmentName());
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
+        }
+
     }
 
     @Override
     public void delete(String id) {
-        departmentList.removeIf(department -> department.getId().equals(id));
+        try {
+            generalDB.getDepartmentList().removeIf(department -> department.getId().equals(id));
+            generalDB.getEmployeeList().removeIf(employee -> employee.getDepartment().getId().equals(id));
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
+        }
     }
 
     @Override
     public Department findById(String id) {
-        return departmentList.stream().filter(dep -> dep.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("department not found by id"));
+        try {
+            return generalDB.getDepartmentList().stream().filter(dep -> dep.getId().equals(id))
+                    .findFirst().orElseThrow(() -> new RuntimeException("department not found by id"));
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
+            return null;
+        }
     }
 
     @Override
     public Collection<Department> findAll() {
-        return departmentList;
+        return generalDB.getDepartmentList();
+    }
+
+    @Override
+    public List<Employee> getEmployeesByDepartment(String id) {
+        try {
+            List<Employee> employeeList = generalDB.getEmployeeList()
+                    .stream()
+                    .filter(employee -> employee.getDepartment().getId().equals(id))
+                    .collect(Collectors.toList());
+            if(employeeList.isEmpty()) {
+                return null;
+            }
+            return employeeList;
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
+            return null;
+        }
     }
 }

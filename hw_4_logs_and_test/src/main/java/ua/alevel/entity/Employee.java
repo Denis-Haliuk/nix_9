@@ -43,9 +43,11 @@ public class Employee extends BaseEntity{
     @Override
     public String toString() {
         return "Employee{" +
+                "id='" + super.getId() + '\'' +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
+                ", department=" + department +
                 '}';
     }
 }

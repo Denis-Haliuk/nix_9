@@ -4,7 +4,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class BaseController {
+public class MainController {
+
+    private DepartmentController departmentController;
+    private EmployeeController employeeController;
+
+    public MainController() {
+        departmentController = new DepartmentController();
+        employeeController = new EmployeeController();
+    }
+
     public void run() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("select your option");
@@ -12,8 +21,6 @@ public class BaseController {
         try {
             runNavigation();
             while ((position = reader.readLine()) != null) {
-                selection(position, reader);
-                position = reader.readLine();
                 if (position.equals("0")) {
                     System.exit(0);
                 }
@@ -34,8 +41,8 @@ public class BaseController {
 
     private void selection(String position, BufferedReader reader) {
         switch (position) {
-            case "1" -> new DepartmentController().run();
-            case "2" -> new EmployeeController().run();
+            case "1" -> departmentController.run();
+            case "2" -> employeeController.run();
 
         }
         runNavigation();

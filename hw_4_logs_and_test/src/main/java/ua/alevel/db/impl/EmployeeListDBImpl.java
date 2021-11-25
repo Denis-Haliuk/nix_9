@@ -1,64 +1,96 @@
 package ua.alevel.db.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.alevel.db.EmployeeDB;
+import ua.alevel.db.GeneralDB;
+import ua.alevel.entity.Department;
 import ua.alevel.entity.Employee;
 import ua.alevel.util.GenerateIdUtil;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class EmployeeListDBImpl implements EmployeeDB {
 
-    private final List<Employee> employees;
-    private static EmployeeListDBImpl instance;
+    private static final Logger LOGGER_ERROR = LoggerFactory.getLogger("error");
+
+    private final GeneralDB generalDB;
 
     public EmployeeListDBImpl() {
         System.out.println("EmployeeListDBImpl.EmployeeListDBImpl");
-        employees = new ArrayList<>();
+        generalDB = GeneralDB.getInstance();
     }
 
-
-    public static EmployeeListDBImpl getInstance() {
-        if (instance == null) {
-            instance = new EmployeeListDBImpl();
-        }
-        return instance;
-    }
     @Override
     public void create(Employee entity) {
-        entity.setId(GenerateIdUtil.generateId(employees));
-        employees.add(entity);
+        try {
+            entity.setId(GenerateIdUtil.generateId(generalDB.getEmployeeList()));
+            generalDB.getEmployeeList().add(entity);
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
+        }
     }
 
     @Override
     public void update(Employee entity) {
-        Employee current = findById(entity.getId());
-        current.setName(entity.getName());
-        current.setAge(entity.getAge());
-        current.setEmail(entity.getEmail());
-        current.setDepartment(entity.getDepartment());
+        try {
+            Employee current = findById(entity.getId());
+            if (current == null) {
+                throw new RuntimeException("employee not found");
+            }
+            current.setName(entity.getName());
+            current.setAge(entity.getAge());
+            current.setEmail(entity.getEmail());
+            current.setDepartment(entity.getDepartment());
+            if(entity.getDepartment() == null) {
+                throw new RuntimeException("department123 not found");
+            }
+        } catch (Exception e) {
+            LOGGER_ERROR.error("Error: " + e);
+            System.out.println("error = " + e);
+        }
     }
 
     @Override
     public void delete(String id) {
-        employees.removeIf(employee -> employee.getId().equals(id));
+        generalDB.getEmployeeList().removeIf(employee -> employee.getId().equals(id));
     }
 
     @Override
     public Employee findById(String id) {
-        return employees.stream().filter(emp -> emp.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("employee not found"));
+        try {
+            return generalDB.getEmployeeList().stream().filter(emp -> emp.getId().equals(id))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("employee not found"));
+        } catch (RuntimeException runtimeException) {
+            LOGGER_ERROR.error("Error: " + runtimeException);
+            System.out.println("runtimeException = " + runtimeException);
+            return null;
+        }
     }
 
     @Override
     public Collection<Employee> findAll() {
-        return employees;
+        return generalDB.getEmployeeList();
     }
 
+
     @Override
-    public boolean existByEmail(String email) {
-        return employees.stream().anyMatch(employee -> employee.getEmail().equals(email));
+    public Department tryGetDepartment(String id) {
+        for (var dep : generalDB.getDepartmentList()) {
+            System.out.println(dep);
+        }
+        try {
+            return generalDB.getDepartmentList().stream().filter(department -> department.getId().equals(id))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("department not found"));
+        } catch (RuntimeException runtimeException) {
+            LOGGER_ERROR.error("Error: " + runtimeException);
+            System.out.println("runtimeException = " + runtimeException);
+            return null;
+        }
+
     }
+
 }
