@@ -32,6 +32,7 @@
         <module>MathSet</module>
         <module>hw_6_exception</module>
         <module>hw_7_ionio</module>
+        <module>module_2</module>
     </modules>
 
     <properties>
