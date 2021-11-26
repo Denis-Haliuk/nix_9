@@ -16,5 +16,4 @@ public class DepartmentGenerationUtil {
         department.setDepartmentName(name);
         return department;
     }
-
 }

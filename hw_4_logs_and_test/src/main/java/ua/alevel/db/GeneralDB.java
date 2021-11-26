@@ -2,13 +2,12 @@ package ua.alevel.db;
 
 import ua.alevel.entity.Department;
 import ua.alevel.entity.Employee;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class GeneralDB {
-    private List<Department> departmentList;
-    private List<Employee> employeeList;
+    private final List<Department> departmentList;
+    private final List<Employee> employeeList;
 
     private static GeneralDB instance;
 

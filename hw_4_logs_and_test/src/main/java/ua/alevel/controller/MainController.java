@@ -43,7 +43,6 @@ public class MainController {
         switch (position) {
             case "1" -> departmentController.run();
             case "2" -> employeeController.run();
-
         }
         runNavigation();
     }

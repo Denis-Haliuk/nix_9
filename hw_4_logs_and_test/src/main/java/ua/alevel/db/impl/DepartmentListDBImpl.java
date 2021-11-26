@@ -7,7 +7,6 @@ import ua.alevel.db.GeneralDB;
 import ua.alevel.entity.Department;
 import ua.alevel.entity.Employee;
 import ua.alevel.util.GenerateIdUtil;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +17,6 @@ public class DepartmentListDBImpl implements DepartmentDB {
     private final GeneralDB generalDB;
 
     public DepartmentListDBImpl() {
-        System.out.println("DepartmentListDBImpl.DepartmentListDBImpl");
         generalDB = GeneralDB.getInstance();
     }
 
@@ -38,7 +36,7 @@ public class DepartmentListDBImpl implements DepartmentDB {
     public void update(Department entity) {
         try {
             Department current = findById(entity.getId());
-            if(current == null) {
+            if (current == null) {
                 throw new RuntimeException("department not found");
             }
             current.setDepartmentName(entity.getDepartmentName());
@@ -84,7 +82,7 @@ public class DepartmentListDBImpl implements DepartmentDB {
                     .stream()
                     .filter(employee -> employee.getDepartment().getId().equals(id))
                     .collect(Collectors.toList());
-            if(employeeList.isEmpty()) {
+            if (employeeList.isEmpty()) {
                 return null;
             }
             return employeeList;

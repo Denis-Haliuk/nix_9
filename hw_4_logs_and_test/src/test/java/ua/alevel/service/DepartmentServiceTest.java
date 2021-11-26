@@ -6,7 +6,6 @@ import ua.alevel.entity.Department;
 import ua.alevel.entity.Employee;
 import ua.alevel.service.impl.DepartmentServiceImpl;
 import ua.alevel.service.impl.EmployeeServiceImpl;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -28,11 +27,10 @@ public class DepartmentServiceTest {
 
     @Order(1)
     @Test
-    public void shouldBeCreateUserWhenNameIsEmpty() {
+    public void shouldBeCreateDepartmentWhenNameIsEmpty() {
         Department department = new Department();
         department.setDepartmentName(null);
         departmentService.create(department);
-
         verifyDepartmentListWhenDepartmentListIsNotEmpty(11);
     }
 
@@ -48,7 +46,6 @@ public class DepartmentServiceTest {
     @Test
     public void shouldBeFindDepartmentWhenIdIsRandom() {
         Department department = getRandomDepartmentFromDepartmentList(getRandomIdFromDepartmentList());
-
         Assertions.assertNotNull(department);
     }
 
@@ -58,16 +55,13 @@ public class DepartmentServiceTest {
 
     @Order(4)
     @Test
-    public void shouldBeUpdateUser() {
+    public void shouldBeUpdateDepartment() {
         String id = getRandomIdFromDepartmentList();
         Department department = getRandomDepartmentFromDepartmentList(id);
         department.setDepartmentName("test");
         departmentService.update(department);
-
         department = departmentService.findById(id);
-
         Assertions.assertEquals("test", department.getDepartmentName());
-
     }
 
     @Order(5)
@@ -75,11 +69,7 @@ public class DepartmentServiceTest {
     public void shouldBeFoundEmployeeByDepartmentId() {
         Department department = getRandomDepartmentFromDepartmentList(getRandomIdFromDepartmentList());
         System.out.println("department = " + department);
-        Employee employee = new Employee();
-        employee.setName("test");
-        employee.setEmail("test");
-        employee.setAge(123);
-        employee.setDepartment(department);
+        Employee employee = EmployeeGenerationUtil.generateEmployee(department);
         employeeService.create(employee);
 
         List<Employee> employeeList = departmentService.getEmployeesByDepartment(department.getId());

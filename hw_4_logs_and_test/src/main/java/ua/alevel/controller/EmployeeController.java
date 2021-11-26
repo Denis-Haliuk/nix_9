@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import ua.alevel.entity.Employee;
 import ua.alevel.service.EmployeeService;
 import ua.alevel.service.impl.EmployeeServiceImpl;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -126,7 +125,7 @@ public class EmployeeController {
             System.out.println("Please, enter id");
             String id = reader.readLine();
             Employee employee = employeeService.findById(id);
-            if(employee == null) {
+            if (employee == null) {
                 return;
             }
             System.out.println("employee = " + employee);

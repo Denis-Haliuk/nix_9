@@ -7,7 +7,6 @@ import ua.alevel.db.GeneralDB;
 import ua.alevel.entity.Department;
 import ua.alevel.entity.Employee;
 import ua.alevel.util.GenerateIdUtil;
-
 import java.util.Collection;
 
 public class EmployeeListDBImpl implements EmployeeDB {
@@ -17,7 +16,6 @@ public class EmployeeListDBImpl implements EmployeeDB {
     private final GeneralDB generalDB;
 
     public EmployeeListDBImpl() {
-        System.out.println("EmployeeListDBImpl.EmployeeListDBImpl");
         generalDB = GeneralDB.getInstance();
     }
 
@@ -43,7 +41,7 @@ public class EmployeeListDBImpl implements EmployeeDB {
             current.setAge(entity.getAge());
             current.setEmail(entity.getEmail());
             current.setDepartment(entity.getDepartment());
-            if(entity.getDepartment() == null) {
+            if (entity.getDepartment() == null) {
                 throw new RuntimeException("department123 not found");
             }
         } catch (Exception e) {
@@ -75,7 +73,6 @@ public class EmployeeListDBImpl implements EmployeeDB {
         return generalDB.getEmployeeList();
     }
 
-
     @Override
     public Department tryGetDepartment(String id) {
         for (var dep : generalDB.getDepartmentList()) {
@@ -90,7 +87,5 @@ public class EmployeeListDBImpl implements EmployeeDB {
             System.out.println("runtimeException = " + runtimeException);
             return null;
         }
-
     }
-
 }

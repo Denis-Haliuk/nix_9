@@ -1,6 +1,5 @@
 package ua.alevel.service.impl;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ua.alevel.dao.EmployeeDao;
@@ -8,7 +7,6 @@ import ua.alevel.dao.impl.EmployeeDaoImpl;
 import ua.alevel.entity.Department;
 import ua.alevel.entity.Employee;
 import ua.alevel.service.EmployeeService;
-
 import java.util.Collection;
 
 public class EmployeeServiceImpl implements EmployeeService {
@@ -38,8 +36,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         LOGGER_WARN.warn("Employee deleting started");
         employeeDao.delete(id);
         LOGGER_WARN.warn("Employee by id = " + id + " deleted");
-
-
     }
 
     @Override
@@ -51,7 +47,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Collection<Employee> findAll() {
         return employeeDao.findAll();
     }
-
 
     @Override
     public Department tryGetDepartment(String id) {
