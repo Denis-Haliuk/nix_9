@@ -1,22 +1,43 @@
-package ua.alevel.date;
+package ua.alevel.tasks;
 
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DateFormatter {
 
-    int MAX_DAY = 31;
-    int MAX_MONTH = 12;
+    private static final int MAX_DAY = 31;
+    private static final int MAX_MONTH = 12;
 
-    private final String[] acceptedFormatList =
+    private static final String[] acceptedFormatList =
             {"^(\\d{4})/(\\d{2})/(\\d{2})$",
                     "^(\\d{2})/(\\d{2})/(\\d{4})$",
                     "^(\\d{2})-(\\d{2})-(\\d{4})$"
             };
 
-    public List<String> formattedDate(List<String> dateList) {
-        List<String> formattedDate = new ArrayList<String>();
+    private final List<String> dateList = new ArrayList<>();
+
+    private Reader reader;
+
+    public DateFormatter(){
+        readDatesFromFile();
+    }
+
+    private void readDatesFromFile() {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("module_2/files/date_input.txt"));
+            while (bufferedReader.ready()) {
+                dateList.add(bufferedReader.readLine());
+            }
+            System.out.println("dates = " + dateList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public List<String> formattedDate() {
+        List<String> formattedDate = new ArrayList<>();
         for (String s : dateList) {
             if (formatDate(s) != null) {
                 formattedDate.add(formatDate(s));
