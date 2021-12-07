@@ -11,3 +11,26 @@ hw_3 = 9
 module_1 = 7
 
 hw_5 = 9
+
+hw_4 = 7
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running ua.alevel.service.DepartmentServiceTest
+department = Department{id='12e6eb7d-49df-4bf3-a25a-d46f8e3d2c71'departmentName='test'}
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.108 s - in ua.alevel.service.DepartmentServiceTest
+[INFO] Running ua.alevel.service.EmployeeServiceTest
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0 s <<< FAILURE! - in ua.alevel.service.EmployeeServiceTest
+[ERROR] ua.alevel.service.EmployeeServiceTest  Time elapsed: 0 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <10> but was: <11>
+        at ua.alevel.service.EmployeeServiceTest.setUp(EmployeeServiceTest.java:32)
+
+[INFO]
+[INFO] Results:
+[INFO]
+[ERROR] Failures:
+[ERROR]   EmployeeServiceTest.setUp:32 expected: <10> but was: <11>
+[INFO]
+[ERROR] Tests run: 6, Failures: 1, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
