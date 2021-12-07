@@ -1,4 +1,4 @@
-package ua.alevel.tasks;
+package ua.alevel.tasks.dateFormatter;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class DateFormatter {
 
     private void readDatesFromFile() {
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("module_2/files/date_input.txt"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("files/date_input.txt"));
             while (bufferedReader.ready()) {
                 dateList.add(bufferedReader.readLine());
             }

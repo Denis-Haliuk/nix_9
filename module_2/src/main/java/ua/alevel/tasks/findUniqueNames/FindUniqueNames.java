@@ -1,4 +1,4 @@
-package ua.alevel.tasks;
+package ua.alevel.tasks.findUniqueNames;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class FindUniqueNames {
 
     private void readNamesFromFile() {
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("module_2/files/name_input.txt"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("files/name_input.txt"));
             while (bufferedReader.ready()) {
                 names.add(bufferedReader.readLine());
             }
