@@ -34,3 +34,5 @@ org.opentest4j.AssertionFailedError: expected: <10> but was: <11>
 [INFO]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
+
+module_2 = 9
