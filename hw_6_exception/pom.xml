@@ -7,6 +7,7 @@
         <groupId>ua.alevel</groupId>
         <version>1.0</version>
     </parent>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
@@ -32,8 +33,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.16</version>
-            <scope>provided</scope>
+            <version>1.18.20</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
