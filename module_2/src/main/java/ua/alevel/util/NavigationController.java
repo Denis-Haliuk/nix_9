@@ -41,7 +41,7 @@ public class NavigationController {
         switch (position) {
             case "1" -> {
                 DateFormatter dateFormatter = new DateFormatter();
-                System.out.println("dateFormatter = " + dateFormatter.formattedDate());
+                System.out.println("dateFormatt er = " + dateFormatter.formattedDate());
             }
             case "2" -> {
                 FindUniqueNames findUniqueNames = new FindUniqueNames();
