@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html, body {
+    background: url('https://world-study.ua/wp-content/uploads/2020/04/14.-Ucheba-vo-vremya-koronavirusa-Blog.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.navbar-custom {
+    background-color: green;
+}
+
+a.nav-item.nav-link {
+    color: white;
+
+}
+
+.sort {
+    cursor: pointer;
+    margin-right: 2em;
+}
