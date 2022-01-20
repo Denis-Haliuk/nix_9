@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>New item</title>
+</head>
+<body>
+
+<div layout:fragment="admin_content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>New item</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" th:action="@{/admin/items/create}" th:object="${item}" method="post">
+                        <div class="form-group">
+                            <label for="itemName">item name</label>
+                            <input type="text" class="form-control" id="itemName" aria-describedby="itemName" placeholder="Enter item name" th:field="*{name}">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="description">item description</label>
+                            <textarea class="form-control" id="description" placeholder="Enter item description" rows="6" th:field="*{description}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="item">item image url</label>
+                            <input type="text" class="form-control" id="item" aria-describedby="itemImage" placeholder="Enter item image url" th:field="*{itemImage}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
