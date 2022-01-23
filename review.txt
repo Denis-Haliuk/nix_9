@@ -36,3 +36,8 @@ org.opentest4j.AssertionFailedError: expected: <10> but was: <11>
 [INFO] BUILD FAILURE
 
 module_2 = 9
+
+hw_6 = 8
+hw_7 = 8
+hw_8 = 8
+hw_9 = 8
