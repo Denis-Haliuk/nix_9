@@ -7,7 +7,7 @@ import javax.persistence.PostLoad;
 import javax.persistence.PostPersist;
 import javax.persistence.PostUpdate;
 
-public class FullNameGenegationListener {
+public class FullNameGenerationListener {
     @PostLoad
     @PostPersist
     @PostUpdate

@@ -5,6 +5,7 @@ import com.alevel.web.controller.AbstractController;
 import com.alevel.web.dto.request.ItemRequestDto;
 import com.alevel.web.dto.response.ItemResponseDto;
 import com.alevel.web.dto.response.PageData;
+import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
+import java.util.Map;
 
 @Validated
 @Controller
@@ -48,7 +51,7 @@ public class AdminItemsController extends AbstractController {
         model.addAttribute("createUrl", "/admin/items/all");
         model.addAttribute("createNew", "/admin/items/new");
         model.addAttribute("cardHeader", "All Items");
-        return "pages/admin/items/items_all";
+        return "pages/admin/item/item_all";
     }
 
     @PostMapping("/all")
@@ -57,16 +60,11 @@ public class AdminItemsController extends AbstractController {
     }
 
     @GetMapping("/new")
-    public String redirectToNewBookPage(Model model) {
+    public String redirectToNewItemPage(Model model) {
         model.addAttribute("item", new ItemRequestDto());
-        return "pages/admin/items/items_new";
+        return "pages/admin/item/item_new";
     }
 
-    @PostMapping("/create")
-    public String createNewDepartment(RedirectAttributes attributes, @ModelAttribute("item") ItemRequestDto dto, @RequestParam("file") MultipartFile file) {
-        itemFacade.create(dto);
-        return "redirect:/admin/items";
-    }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable @Min(value = 1, message = "id can not be zero") Long id) {
@@ -80,9 +78,33 @@ public class AdminItemsController extends AbstractController {
             Long itemId = Long.parseLong(id);
             ItemResponseDto dto = itemFacade.findById(itemId);
             model.addAttribute("item", dto);
-            return "pages/admin/items/item_details";
+            return "pages/admin/item/item_details";
         } catch (NumberFormatException e) {
             throw new NumberFormatException("incorrect value id");
         }
+
+    }
+
+    @GetMapping("/admin/manufacturer/{manufacturerId}")
+    public String findAllByManufacturer(@PathVariable Long manufacturerId, Model model, WebRequest request) {
+        PageData<ItemResponseDto> response = itemFacade.findAllByManufacturerId(request, manufacturerId);
+//        response.initPaginationState(response.getCurrentPage());
+//        List<HeaderData> headerDataList = getHeaderDataList(columnNames, response);
+//        model.addAttribute("headerDataList", headerDataList);
+        model.addAttribute("createUrl", "/items/manufacturer" + manufacturerId);
+        model.addAttribute("createNewItemUrl", "/students/new");
+        model.addAttribute("pageData", response);
+        model.addAttribute("allowCreate", false);
+        model.addAttribute("cardHeader", "All Items");
+        return "pages/item/item_all";
+    }
+
+    @PostMapping("/admin/manufacturer/{manufacturerId}")
+    public ModelAndView findAllByCompanyRedirect(@PathVariable Long manufacturerId, WebRequest request, ModelMap model) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        if (MapUtils.isNotEmpty(parameterMap)) {
+            parameterMap.forEach(model::addAttribute);
+        }
+        return new ModelAndView("redirect:/admin/manufacturer/" + manufacturerId, model);
     }
 }

@@ -41,6 +41,7 @@ public class AuthController extends AbstractController {
             if (SecurityUtil.hasRole(RoleType.ROLE_PERSONAL.name())) {
                 return "redirect:/personal/dashboard";
             }
+
         }
         if (error != null) {
             showError(model, "Your email and password is invalid.");

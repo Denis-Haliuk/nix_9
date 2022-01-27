@@ -1,5 +1,6 @@
 package com.alevel.service.impl;
 
+import com.alevel.persistence.entity.category.Category;
 import com.alevel.persistence.entity.item.Item;
 import com.alevel.persistence.entity.manufacturer.Manufacturer;
 import com.alevel.persistence.repository.item.ItemRepository;
@@ -12,6 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PLPServiceImpl implements PLPService {
@@ -29,16 +31,20 @@ public class PLPServiceImpl implements PLPService {
     @Override
     public List<Item> search(Map<String, Object> queryMap) {
         if (queryMap.get(WebUtil.MANUFACTURER_PARAM) != null) {
-            Long publisherId = (Long) queryMap.get(WebUtil.MANUFACTURER_PARAM);
-            Optional<Manufacturer> manufacturer = manufacturerRepository.findById(publisherId);
+            Long manufacturerId = (Long) queryMap.get(WebUtil.MANUFACTURER_PARAM);
+            Optional<Manufacturer> manufacturer = manufacturerRepository.findById(manufacturerId);
             if (manufacturer.isEmpty()) {
                 throw new EntityNotFoundException("this manufacturer not found");
             }
-            return itemRepository.findByManufacturer(manufacturer.get());
+            return itemRepository.findByManufacturer(manufacturer);
         }
         if (queryMap.get(WebUtil.ITEM_SEARCH_PARAM) != null) {
             String itemName = (String) queryMap.get(WebUtil.ITEM_SEARCH_PARAM);
             return itemRepository.findByNameContaining(itemName);
+        }
+        if (queryMap.get(WebUtil.CATEGORY_SEARCH_PARAM) != null) {
+            Long categories = (Long) queryMap.get(WebUtil.CATEGORY_SEARCH_PARAM);
+            return itemRepository.findByCategories(categories);
         }
         return itemRepository.findAll();
     }

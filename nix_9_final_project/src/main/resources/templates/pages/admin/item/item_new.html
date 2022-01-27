@@ -18,16 +18,14 @@
                     <h4>New item</h4>
                 </div>
                 <div class="card-body">
-                    <form action="#" th:action="@{/admin/items/create}" th:object="${item}" method="post">
+                    <form action="#" th:action="@{/admin/items/create}" th:object="${item}" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="itemName">item name</label>
                             <input type="text" class="form-control" id="itemName" aria-describedby="itemName" placeholder="Enter item name" th:field="*{name}">
                         </div>
-
-
                         <div class="form-group">
                             <label for="description">item description</label>
-                            <textarea class="form-control" id="description" placeholder="Enter item description" rows="6" th:field="*{description}" />
+                            <textarea class="form-control" id="description" placeholder="Enter item description" rows="6" th:field="*{description}"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="item">item image url</label>

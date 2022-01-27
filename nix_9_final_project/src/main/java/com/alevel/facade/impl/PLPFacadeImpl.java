@@ -32,18 +32,25 @@ public class PLPFacadeImpl implements PLPFacade {
         Map<String, Object> queryMap = new HashMap<>();
         if (webRequest.getParameterMap().get(WebUtil.MANUFACTURER_PARAM) != null) {
             String[] params = webRequest.getParameterMap().get(WebUtil.MANUFACTURER_PARAM);
-            Long publisherId = Long.parseLong(params[0]);
-            queryMap.put(WebUtil.MANUFACTURER_PARAM, publisherId);
-            loggerService.commit(LoggerLevel.INFO, "add " + WebUtil.MANUFACTURER_PARAM + ": " + publisherId);
+            Long manufacturerId = Long.parseLong(params[0]);
+            queryMap.put(WebUtil.MANUFACTURER_PARAM, manufacturerId);
+            loggerService.commit(LoggerLevel.INFO, "add " + WebUtil.MANUFACTURER_PARAM + ": " + manufacturerId);
         }
         if (webRequest.getParameterMap().get(WebUtil.ITEM_SEARCH_PARAM) != null) {
             String[] params = webRequest.getParameterMap().get(WebUtil.ITEM_SEARCH_PARAM);
-            String bookName = params[0];
-            queryMap.put(WebUtil.ITEM_SEARCH_PARAM, bookName);
-            loggerService.commit(LoggerLevel.INFO, "add " + WebUtil.ITEM_SEARCH_PARAM + ": " + bookName);
+            String itemName = params[0];
+            queryMap.put(WebUtil.ITEM_SEARCH_PARAM, itemName);
+            loggerService.commit(LoggerLevel.INFO, "add " + WebUtil.ITEM_SEARCH_PARAM + ": " + itemName);
         }
-        List<Item> books = plpService.search(queryMap);
-        List<ItemPLPDto> itemPLPDtos = books.stream().map(ItemPLPDto::new).toList();
+        if (webRequest.getParameterMap().get(WebUtil.CATEGORY_SEARCH_PARAM) != null) {
+            String[] params = webRequest.getParameterMap().get(WebUtil.CATEGORY_SEARCH_PARAM);
+            Long category = Long.valueOf(params[0]);
+            queryMap.put(WebUtil.CATEGORY_SEARCH_PARAM, category);
+            loggerService.commit(LoggerLevel.INFO, "add " + WebUtil.CATEGORY_SEARCH_PARAM + ": " + category);
+        }
+
+        List<Item> items = plpService.search(queryMap);
+        List<ItemPLPDto> itemPLPDtos = items.stream().map(ItemPLPDto::new).toList();
         return itemPLPDtos;
     }
 }

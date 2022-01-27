@@ -1,6 +1,6 @@
 package com.alevel.persistence.entity.user;
 
-import com.alevel.persistence.listener.FullNameGenegationListener;
+import com.alevel.persistence.listener.FullNameGenerationListener;
 import com.alevel.persistence.type.RoleType;
 
 import javax.persistence.*;
@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @DiscriminatorValue("PERSONAL")
 @EntityListeners({
-        FullNameGenegationListener.class
+        FullNameGenerationListener.class
 })
 public class Personal extends User{
     @Temporal(TemporalType.TIMESTAMP)

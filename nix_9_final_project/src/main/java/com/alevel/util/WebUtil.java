@@ -19,6 +19,7 @@ public final class WebUtil {
     public static final int DEFAULT_SIZE_PARAM_VALUE = 10;
     public static final String MANUFACTURER_PARAM = "manufacturer";
     public static final String ITEM_SEARCH_PARAM = "itemSearch";
+    public static final String CATEGORY_SEARCH_PARAM = "category";
 
     private WebUtil() { }
 

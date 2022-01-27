@@ -3,7 +3,9 @@ package com.alevel.service.impl;
 import com.alevel.persistence.crud.CrudRepositoryHelper;
 import com.alevel.persistence.datatable.DataTableRequest;
 import com.alevel.persistence.datatable.DataTableResponse;
+import com.alevel.persistence.entity.category.Category;
 import com.alevel.persistence.entity.item.Item;
+import com.alevel.persistence.entity.manufacturer.Manufacturer;
 import com.alevel.persistence.repository.item.ItemRepository;
 import com.alevel.service.ItemService;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -54,5 +57,15 @@ public class ItemServiceImpl implements ItemService {
     @Transactional(readOnly = true)
     public DataTableResponse<Item> findAll(DataTableRequest request) {
         return crudRepositoryHelper.findAll(itemRepository, request);
+    }
+
+    @Override
+    public DataTableResponse<Item> findByManufacturer(Manufacturer manufacturer) {
+        return (DataTableResponse<Item>) itemRepository.findByManufacturer(Optional.ofNullable(manufacturer));
+    }
+
+    @Override
+    public DataTableResponse<Item> findByCategories(Long categoriesId) {
+        return (DataTableResponse<Item>) itemRepository.findByCategories(categoriesId);
     }
 }

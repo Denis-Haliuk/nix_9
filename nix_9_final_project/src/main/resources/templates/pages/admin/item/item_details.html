@@ -5,7 +5,7 @@
       layout:decorate="~{fragments/admin_layout}">
 <head>
     <meta charset="utf-8">
-    <title>items</title>
+    <title>Items</title>
 </head>
 <body>
 
@@ -25,61 +25,57 @@
             <div class="card-body">
                 <table class="table">
                     <tr>
-                        <td>id</td>
+                        <td>Id</td>
                         <td th:text="${item.getId()}">id</td>
                     </tr>
                     <tr>
-                        <td>created</td>
+                        <td>Created</td>
                         <td th:text="${#calendars.format(item.getCreated(),'dd MMMM yyyy')}">id</td>
                     </tr>
                     <tr>
-                        <td>updated</td>
+                        <td>Updated</td>
                         <td th:text="${#calendars.format(item.getUpdated(),'dd MMMM yyyy')}">id</td>
                     </tr>
                     <tr>
-                        <td>visible</td>
+                        <td>Visible</td>
                         <td th:text="${item.getVisible()}">id</td>
                     </tr>
-
                     <tr>
-                        <td>price</td>
+                        <td>Price</td>
                         <td th:text="${'$' + item.getPrice()}">id</td>
                     </tr>
                     <tr>
-                        <td>quantity</td>
+                        <td>Quantity</td>
                         <td th:text="${item.getQuantity()}">id</td>
                     </tr>
                     <tr th:if="${item.getManufacturer() != null}">
-                        <td>publisher</td>
+                        <td>Manufacturer</td>
                         <td>
                             <a
-                                    th:href="@{'/admin/manufacturers/' + ${item.getManufacturer().getId()}}"
+                                    th:href="@{'/admin/manufacturer/' + ${item.getManufacturer().getId()}}"
                                     th:text="${item.getManufacturer().getName}"
                                     type="button" class="btn btn-link"></a>
                         </td>
                     </tr>
-                    <tr th:if="${not #lists.isEmpty(item.getCategories())}">
-                        <td>categories</td>
-                        <td>
-                            <ul th:each="author : ${item.getCategories()}">
-                                <li>
-                                    <a
-                                            th:href="@{'/admin/categories/' + ${category.getId()}}"
-                                            th:text="${category.getName()}"
-                                            type="button" class="btn btn-link"></a>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                        <td>description</td>
+<!--                    <tr th:if="${not #lists.isEmpty(item.getCategories())}">-->
+<!--                        <td>categories</td>-->
+<!--                        <td>-->
+<!--                            <ul th:each="author : ${item.getCategories()}">-->
+<!--                                <li>-->
+<!--                                    <a-->
+
+<!--                                            th:text="${category.getName()}"-->
+<!--                                            type="button" class="btn btn-link"></a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+                        <td>Description</td>
                         <td>
                             <p>
                                 <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                    show
+                                    Show description
                                 </a>
-<!--                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">-->
-<!--                                    Button with data-bs-target-->
-<!--                                </button>-->
                             </p>
                             <div class="collapse" id="collapseExample">
                                 <div class="card card-body">

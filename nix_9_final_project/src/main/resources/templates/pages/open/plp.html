@@ -6,7 +6,7 @@
       layout:decorate="~{fragments/open_layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Items</title>
     <style>
 
         a {
@@ -168,19 +168,16 @@
     <div class="container fixed-container d-flex justify-content-center">
         <div class="row mt-4 mb-4">
             <!--            <div class="col col-md-6 col-lg-4 col-xl-3 d-flex align-items-stretch" th:each="book : ${bookList}">-->
-            <div class="col d-flex align-items-stretch" th:each="item : ${itemsList}">
+            <div class="col d-flex align-items-stretch" th:each="item : ${itemList}">
                 <figure class="card card-product-grid">
                     <a href="#" class="img-wrap" data-abc="true">
                         <img th:src="${item.getImageUrl()}"> </a>
                     <figcaption class="info-wrap">
                         <div class="row">
                             <div class="col-md-9">
-                                <a href="#" class="title" data-abc="true" th:text="${item.getBookName()}">name</a>
-                                <a th:href="@{'/books' + '?publisher=' + ${item.getManufacturer().getId()}}" class="rated" th:text="${item.getManufacturer().getName()}">name</a>
-                                <!--                                <div th:each="author : ${book.getAuthors()}">-->
-                                <!--                                    <span class="rated" th:text="${author}">author</span>-->
-                                <!--                                </div>-->
-                            </div>
+                                <a th:href="@{'/items/details/' + ${item.getId()}}"  class="title" data-abc="true" th:text="${item.getName()}">name</a>
+                                <a th:href="@{'/items' + '?manufacturer=' + ${item.getManufacturer().getId()}}" class="rated" th:text="${item.getManufacturer().getName()}">manufacturer</a>
+                                                            </div>
                             <div class="col-md-3 col-xs-3">
                                 <div class="rating text-right">
                                     <i class="fa fa-star"></i>

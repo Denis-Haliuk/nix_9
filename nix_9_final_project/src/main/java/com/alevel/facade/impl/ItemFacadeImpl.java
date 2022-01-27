@@ -61,6 +61,19 @@ public class ItemFacadeImpl implements ItemFacade {
     public PageData<ItemResponseDto> findAll(WebRequest request) {
         DataTableRequest dataTableRequest = WebUtil.generateDataTableRequestByWebRequest(request);
         DataTableResponse<Item> tableResponse = itemService.findAll(dataTableRequest);
+        List<ItemResponseDto> items = tableResponse.getItems().stream().
+                map(ItemResponseDto::new).
+                collect(Collectors.toList());
+
+        PageData<ItemResponseDto> pageData = (PageData<ItemResponseDto>) WebUtil.initPageData(tableResponse);
+        pageData.setItems(items);
+        return pageData;
+    }
+
+    @Override
+    public PageData<ItemResponseDto> findAllByManufacturerId(WebRequest request, Long manufacturerId) {
+        DataTableRequest dataTableRequest = WebUtil.generateDataTableRequestByWebRequest(request);
+        DataTableResponse<Item> tableResponse = itemService.findAll(dataTableRequest);
         List<ItemResponseDto> books = tableResponse.getItems().stream().
                 map(ItemResponseDto::new).
                 collect(Collectors.toList());

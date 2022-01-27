@@ -13,19 +13,17 @@
     <tr th:each="item,iter : ${pageData.getItems()}">
         <td th:text="${iter.count}"></td>
         <td>
-            <img th:src="@{${item.get()}}" width="45" height="45"/>
+            <img th:src="@{${item.getImageUrl()}}" width="45" height="45"/>
         </td>
-        <td th:text="${book.getBookName()}"></td>
-        <td th:text="${book.getPageSize()}"></td>
-        <td th:text="${book.getPublicationDate()}"></td>
-        <td th:text="${#calendars.format(book.getCreated(),'dd MMMM yyyy')}"></td>
-        <td th:text="${book.getPrice()}"></td>
-        <td th:text="${book.getQuantity()}"></td>
+        <td th:text="${item.getName()}"></td>
+        <td th:text="${#calendars.format(item.getCreated(),'dd MMMM yyyy')}"></td>
+        <td th:text="${item.getPrice()}"></td>
+        <td th:text="${item.getQuantity()}"></td>
         <td>
-            <a th:href="@{'/admin/books/details/' + ${book.getId()}}" type="button" class="btn btn-primary">details</a>
+            <a th:href="@{'/admin/items/details/' + ${item.getId()}}" type="button" class="btn btn-primary">details</a>
         </td>
         <td>
-            <a th:href="@{'/admin/books/delete/' + ${book.getId()}}" type="button" class="btn btn-danger">delete</a>
+            <a th:href="@{'/admin/items/delete/' + ${item.getId()}}" type="button" class="btn btn-danger">delete</a>
         </td>
     </tr>
 </div>

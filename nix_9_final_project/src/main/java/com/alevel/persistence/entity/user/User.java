@@ -24,6 +24,7 @@ public class User extends BaseEntity {
     public User() {
         super();
         this.enabled = true;
+
     }
 
     public String getEmail() {

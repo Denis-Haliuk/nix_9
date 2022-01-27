@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/open_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Item details</title>
+</head>
+<body>
+
+<div layout:fragment="open_content">
+    <div class="container">
+        <div class="card mt-4 mb-4">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-4">
+                        <img th:src="@{${item.getImageUrl()}}" width="180" height="220"/>
+                    </div>
+                    <div class="col-8">
+                        <h3 class="card-title" th:text="${item.getName()}">name</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table">
+
+                        <td>Price</td>
+                        <td th:text="${'$' + item.getPrice()}">id</td>
+                    </tr>
+                    <tr>
+                        <td>Quantity</td>
+                        <td th:text="${item.getQuantity()}">id</td>
+                    </tr>
+                    <tr th:if="${item.getManufacturer() != null}">
+                        <td>Manufacturer</td>
+                        <td>
+                            <a
+                                    th:href="@{'/items' + '?manufacturer=' + ${item.getManufacturer().getId()}}"
+                                    th:text="${item.getManufacturer().getName}"
+                                    type="button" class="btn btn-link"></a>
+                        </td>
+                    </tr>
+                                        <tr th:if="${not #lists.isEmpty(item.getCategories())}">
+                                            <td>categories</td>
+                                            <td>
+                                                <ul th:each="category : ${item.getCategories()}">
+                                                    <li>
+                                                        <a th:href="@{'/items' + '?category=' + ${category.getId()}}"
+
+                                                                th:text="${category.getName()}"
+                                                                type="button" class="btn btn-link"></a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                    <td>Description</td>
+                    <td>
+                        <p>
+                            <a class="btn btn-link" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Show description
+                            </a>
+
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <span th:text="${item.getDescription()}"></span>
+                            </div>
+                        </div>
+                    </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
