@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/admin_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Manufacturer</title>
+</head>
+<body>
+
+<div layout:fragment="admin_content">
+    <div class="container">
+        <div class="card mt-4 mb-4">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <h3 class="card-title" th:text="${manufacturer.getName()}">name</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <td>Id</td>
+                        <td th:text="${manufacturer.getId()}">id</td>
+                    </tr>
+                    <tr>
+                        <td>Created</td>
+                        <td th:text="${#calendars.format(manufacturer.getCreated(),'dd MMMM yyyy')}">id</td>
+                    </tr>
+                    <tr>
+                        <td>Updated</td>
+                        <td th:text="${#calendars.format(manufacturer.getUpdated(),'dd MMMM yyyy')}">id</td>
+                    </tr>
+                    <tr>
+                        <td>Visible</td>
+                        <td th:text="${manufacturer.getVisible()}">id</td>
+                    </tr>
+                    <tr>
+                        <td>address</td>
+                        <td th:text="${manufacturer.getAddress()}">id</td>
+                    </tr>
+                    <tr>
+                        <td>Country</td>
+                        <td th:text="${manufacturer.getCountry()}">id</td>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

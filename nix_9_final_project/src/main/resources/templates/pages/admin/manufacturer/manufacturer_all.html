@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/data_table_layout}">
+<head>
+    <meta charset="utf-8">
+    <title>manufacturer</title>
+</head>
+<body>
+
+<div layout:fragment="data_table_content">
+    <tr th:each="manufacturer,iter : ${pageData.getItems()}">
+        <td th:text="${iter.count}"></td>
+
+        <td th:text="${manufacturer.getName()}"></td>
+        <td th:text="${#calendars.format(manufacturer.getCreated(),'dd MMMM yyyy')}"></td>
+        <td th:text="${manufacturer.getAddress()}"></td>
+        <td th:text="${manufacturer.getCountry()}"></td>
+        <td>
+            <a th:href="@{'/admin/manufacturers/details/' + ${manufacturer.getId()}}" type="button" class="btn btn-primary">details</a>
+        </td>
+        <td>
+            <a th:href="@{'/admin/manufacturers/delete/' + ${manufacturer.getId()}}" type="button" class="btn btn-danger">delete</a>
+        </td>
+    </tr>
+</div>
+
+</body>
+</html>

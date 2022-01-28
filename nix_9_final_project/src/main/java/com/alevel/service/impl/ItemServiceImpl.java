@@ -35,14 +35,12 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
-
     public void update(Item entity) {
         crudRepositoryHelper.update(itemRepository, entity);
     }
 
     @Override
     @Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
-
     public void delete(Long id) {
         crudRepositoryHelper.delete(itemRepository, id);
     }

@@ -2,11 +2,13 @@ package com.alevel.config.security;
 
 import com.alevel.persistence.entity.user.User;
 import com.alevel.persistence.repository.user.UserRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -44,4 +46,5 @@ public class DefaultUserDetailsService implements UserDetailsService {
                 authorities
         );
     }
+
 }

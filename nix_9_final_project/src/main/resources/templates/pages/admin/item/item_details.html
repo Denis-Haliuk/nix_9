@@ -52,24 +52,24 @@
                         <td>Manufacturer</td>
                         <td>
                             <a
-                                    th:href="@{'/admin/manufacturer/' + ${item.getManufacturer().getId()}}"
+                                    th:href="@{'/admin/manufacturers/details/' + ${item.getManufacturer().getId()}}"
                                     th:text="${item.getManufacturer().getName}"
                                     type="button" class="btn btn-link"></a>
                         </td>
                     </tr>
-<!--                    <tr th:if="${not #lists.isEmpty(item.getCategories())}">-->
-<!--                        <td>categories</td>-->
-<!--                        <td>-->
-<!--                            <ul th:each="author : ${item.getCategories()}">-->
-<!--                                <li>-->
-<!--                                    <a-->
+                    <tr th:if="${not #lists.isEmpty(item.getCategories())}">
+                        <td>categories</td>
+                        <td>
+                            <ul th:each="category : ${item.getCategories()}">
+                                <li>
+                                    <a
 
-<!--                                            th:text="${category.getName()}"-->
-<!--                                            type="button" class="btn btn-link"></a>-->
-<!--                                </li>-->
-<!--                            </ul>-->
-<!--                        </td>-->
-<!--                    </tr>-->
+                                            th:text="${category.getName()}"
+                                            type="button" class="btn btn-link"></a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
                         <td>Description</td>
                         <td>
                             <p>

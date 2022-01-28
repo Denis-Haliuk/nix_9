@@ -5,8 +5,10 @@ import com.alevel.persistence.crud.CrudRepositoryHelper;
 import com.alevel.persistence.datatable.DataTableRequest;
 import com.alevel.persistence.datatable.DataTableResponse;
 import com.alevel.persistence.entity.user.Personal;
+import com.alevel.persistence.entity.user.User;
 import com.alevel.persistence.repository.user.PersonalRepository;
-import com.alevel.service.PersonalCrudService;
+import com.alevel.persistence.repository.user.UserRepository;
+import com.alevel.service.UserCrudService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -16,32 +18,32 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-public class PersonalCrudServiceImpl implements PersonalCrudService {
+public class UserCrudServiceImpl implements UserCrudService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final PersonalRepository personalRepository;
-    private final CrudRepositoryHelper<Personal, PersonalRepository> crudRepositoryHelper;
+    private final UserRepository userRepository;
+    private final CrudRepositoryHelper<User, UserRepository<User>> crudRepositoryHelper;
 
-    public PersonalCrudServiceImpl(
+    public UserCrudServiceImpl(
             BCryptPasswordEncoder bCryptPasswordEncoder,
-            PersonalRepository personalRepository, CrudRepositoryHelper<Personal, PersonalRepository> crudRepositoryHelper) {
+            UserRepository userRepository, CrudRepositoryHelper<User, UserRepository<User>> crudRepositoryHelper) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.personalRepository = personalRepository;
+        this.userRepository = userRepository;
         this.crudRepositoryHelper = crudRepositoryHelper;
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.REPEATABLE_READ, rollbackFor = Exception.class)
-    public void create(Personal personal) {
-        if (personalRepository.existsByEmail(personal.getEmail())) {
+    public void create(User user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
             throw new EntityExistException("this personal is exist");
         }
-        personal.setPassword(bCryptPasswordEncoder.encode(personal.getPassword()));
-        crudRepositoryHelper.create(personalRepository, personal);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        crudRepositoryHelper.create(userRepository, user);
     }
 
     @Override
-    public void update(Personal entity) {
+    public void update(User entity) {
 
     }
 
@@ -51,12 +53,12 @@ public class PersonalCrudServiceImpl implements PersonalCrudService {
     }
 
     @Override
-    public Optional<Personal> findById(Long id) {
+    public Optional<User> findById(Long id) {
         return Optional.empty();
     }
 
     @Override
-    public DataTableResponse<Personal> findAll(DataTableRequest request) {
+    public DataTableResponse<User> findAll(DataTableRequest request) {
         return null;
     }
 }

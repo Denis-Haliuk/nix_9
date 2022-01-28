@@ -20,10 +20,11 @@
                 <nav class="navbar navbar-dark bg-dark">
                     <a class="nav-item nav-link" th:href="@{/admin/dashboard}">Dashboard</a>
                     <a class="nav-item nav-link" th:href="@{/admin/items}">Items</a>
-                    <a class="nav-item nav-link" th:href="@{/admin/orders}">Orders</a>
+                    <a class="nav-item nav-link" th:href="@{/admin/manufacturers}">manufacturers</a>
                     <a class="nav-item nav-link" th:href="@{/admin/cards}">Cards</a>
                     <a class="nav-item nav-link" th:href="@{/admin/personals}">Personals</a>
-                    <a class="nav-item nav-link" onclick="document.forms['logoutForm'].submit()" style="cursor: pointer !important;">Logout</a>
+                    <a class="nav-item nav-link" onclick="document.forms['logoutForm'].submit()"
+                       style="cursor: pointer !important;">Logout</a>
                 </nav>
             </div>
 
@@ -35,7 +36,22 @@
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
-                    <a class="nav-item nav-link" onclick="document.forms['logoutForm'].submit()" style="cursor: pointer !important;">Logout</a>
+                    <a class="nav-item nav-link" onclick="document.forms['logoutForm'].submit()"
+                       style="cursor: pointer !important;">Logout</a>
+                </nav>
+            </div>
+
+            <div sec:authorize="hasRole('ROLE_USER')">
+                <nav class="navbar navbar-dark bg-dark fixed-top">
+                    <a class="nav-item nav-link" th:href="@{/items}">Items</a>
+                    <form class="d-flex" method="POST" th:action="@{/items/search}" id="itemsSearch">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                               id="itemsNamed">
+                        <button class="btn btn-outline-success" type="submit" id="btnItemsSearch">Search</button>
+                    </form>
+                    <a class="nav-item nav-link" th:href="@{/cart}" style="cursor: pointer !important;">Cart</a>
+                    <a class="nav-item nav-link" onclick="document.forms['logoutForm'].submit()"
+                       style="cursor: pointer !important;">Logout</a>
                 </nav>
             </div>
 
@@ -63,6 +79,7 @@
             </div>
             <section layout:fragment="auth_content"></section>
         </div>
+
     </div>
 </div>
 </body>
