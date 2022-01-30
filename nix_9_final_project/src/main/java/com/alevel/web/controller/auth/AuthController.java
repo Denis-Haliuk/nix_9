@@ -41,6 +41,9 @@ public class AuthController extends AbstractController {
             if (SecurityUtil.hasRole(RoleType.ROLE_PERSONAL.name())) {
                 return "redirect:/personal/dashboard";
             }
+            if (SecurityUtil.hasRole(RoleType.ROLE_USER.name())) {
+                return "redirect:/items";
+            }
 
         }
         if (error != null) {
@@ -80,6 +83,9 @@ public class AuthController extends AbstractController {
         }
         if (SecurityUtil.hasRole(RoleType.ROLE_PERSONAL.name())) {
             return "redirect:/personal/dashboard";
+        }
+        if (SecurityUtil.hasRole(RoleType.ROLE_USER.name())) {
+            return "redirect:/items";
         }
         return "redirect:/login";
     }

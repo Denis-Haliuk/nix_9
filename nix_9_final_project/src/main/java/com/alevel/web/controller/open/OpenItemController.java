@@ -1,9 +1,11 @@
 package com.alevel.web.controller.open;
 
+import com.alevel.config.security.SecurityService;
 import com.alevel.facade.ItemFacade;
 import com.alevel.facade.PLPFacade;
+import com.alevel.facade.UserFacade;
+import com.alevel.util.SecurityUtil;
 import com.alevel.web.dto.response.ItemResponseDto;
-import com.alevel.web.dto.response.PageData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +19,27 @@ import javax.validation.constraints.NotBlank;
 public class OpenItemController {
     private final PLPFacade plpFacade;
     private final ItemFacade itemFacade;
+    private final UserFacade userFacade;
+    private final SecurityService securityService;
 
-    public OpenItemController(PLPFacade plpFacade, ItemFacade itemFacade) {
+
+
+    public OpenItemController(PLPFacade plpFacade, ItemFacade itemFacade, UserFacade userFacade, SecurityService securityService) {
         this.plpFacade = plpFacade;
         this.itemFacade = itemFacade;
+        this.userFacade = userFacade;
+        this.securityService = securityService;
     }
 //    private final SearchItemFacade searchItemFacade;
 
     @GetMapping
     private String allItems(Model model, WebRequest webRequest) {
+        boolean isAuthenticated = securityService.isAuthenticated();
+        Long userId;
+        if (isAuthenticated) {
+            userId = userFacade.findByEmail(SecurityUtil.getUsername());
+            model.addAttribute("userId", userId);
+        }
         model.addAttribute("itemList", plpFacade.search(webRequest));
         return "pages/open/plp";
     }
@@ -35,6 +49,12 @@ public class OpenItemController {
         try {
             Long itemId = Long.parseLong(id);
             ItemResponseDto dto = itemFacade.findById(itemId);
+            boolean isAuthenticated = securityService.isAuthenticated();
+            Long userId;
+            if (isAuthenticated) {
+                userId = userFacade.findByEmail(SecurityUtil.getUsername());
+                model.addAttribute("userId", userId);
+            }
             model.addAttribute("item", dto);
             return "pages/open/pdp";
         } catch (NumberFormatException e) {

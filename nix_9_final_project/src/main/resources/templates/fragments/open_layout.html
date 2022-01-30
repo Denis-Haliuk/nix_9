@@ -2,37 +2,79 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{layout}" xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/shop.css}">
+    <link crossorigin="anonymous" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700;800&family=Roboto:wght@500;700&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
     <title>Title</title>
 </head>
 <body>
-<div class="container-fluid">
+<form id="logoutForm" method="POST" th:action="@{/logout}">
+    <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+</form>
+<div layout:fragment="content">
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
 
-    <div layout:fragment="content">
-        <nav class="navbar navbar-dark bg-dark fixed-top">
-            <form id="logoutForm" method="POST" th:action="@{/logout}">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            </form>
-            <a class="nav-item nav-link" th:href="@{/items}">Items</a>
-            <form class="d-flex" method="POST" th:action="@{/items/search}" id="itemsSearch">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="itemsNamed">
-                <button class="btn btn-outline-success" type="submit" id="btnItemsSearch">Search</button>
-            </form>
-            <a class="nav-item nav-link" sec:authorize="isAuthenticated()" th:href="@{/cart}" style="cursor: pointer !important;">Cart</a>
-            <a class="nav-item nav-link" sec:authorize="!isAuthenticated()" th:href="@{/login}" style="cursor: pointer !important;">Login</a>
-            <a class="nav-item nav-link" sec:authorize="isAuthenticated()" onclick="document.forms['logoutForm'].submit()"
-               style="cursor: pointer !important;">Logout</a>
-        </nav>
+                <div class="logo">
+                    <div>
+                        <img style="width: 50px" th:src="@{/img/logo_pet.png}">
+                    </div>
+                </div>
 
-        <section layout:fragment="open_content"></section>
-    </div>
+                <div class="header__logo">PetShop</div>
+
+                <nav class="nav">
+
+                    <a class="nav__link" th:href="@{/items}">Items</a>
+                    <a class="nav__link" sec:authorize="isAuthenticated()"
+                       th:href="@{'/cart/' + ${userId}}">Cart</a>
+                    <a class="nav__link" sec:authorize="!isAuthenticated()"
+                       th:href="@{/login}">Login</a>
+                    <a class="nav__link" onclick="document.forms['logoutForm'].submit()"
+                       sec:authorize="isAuthenticated()">Logout</a>
+
+                </nav>
+                <div class="search">
+                    <form >
+                        <input id="input" placeholder="Search the store..." type="text">
+                        <a th:onclick="inputFunc()" class="nav__link" type="submit">Search!</a>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </header>
+    <section layout:fragment="open_content"></section>
 </div>
+
+
+
+
+
+<!--</div>-->
 
 <th:block layout:fragment="scripts">
 </th:block>
-
+<script th:inline="javascript">
+    function inputFunc(){
+        location.href="/items?itemSearch=" + document.getElementById("input").value;
+    }
+</script>
 </body>
 </html>

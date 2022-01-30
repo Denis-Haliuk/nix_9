@@ -1,31 +1,39 @@
-package com.alevel.persistence.entity.order;
+package com.alevel.web.dto.response;
 
-import com.alevel.persistence.entity.BaseEntity;
+import com.alevel.persistence.entity.order.Order;
+import org.aspectj.weaver.ast.Or;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+public class OrderResponseDto extends ResponseDto {
 
-@Entity
-@Table(name = "orders")
-public class Order extends BaseEntity {
-
-    @Column(name = "cart_id")
     private Long cartId;
-
-    @Column(name = "customer_name")
     private String customerName;
-
-    @Column(name = "customer_address")
     private String customerAddress;
-
-    @Column(name = "customer_email")
     private String customerEmail;
-
-    @Column(name = "customer_phone")
     private String customerPhone;
 
+    public OrderResponseDto() {
 
+    }
+
+    public OrderResponseDto(Order order) {
+        setId(order.getId());
+        setCreated(order.getCreated());
+        setUpdated(order.getUpdated());
+        setVisible(order.getVisible());
+        this.cartId = order.getCartId();
+        this.customerName = order.getCustomerName();
+        this.customerAddress = order.getCustomerAddress();
+        this.customerEmail = order.getCustomerEmail();
+        this.customerPhone = order.getCustomerPhone();
+    }
+
+    public Long getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
+    }
 
     public String getCustomerName() {
         return customerName;
@@ -57,13 +65,5 @@ public class Order extends BaseEntity {
 
     public void setCustomerPhone(String customerPhone) {
         this.customerPhone = customerPhone;
-    }
-
-    public Long getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(Long cartId) {
-        this.cartId = cartId;
     }
 }

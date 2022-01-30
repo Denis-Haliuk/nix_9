@@ -61,4 +61,9 @@ public class UserCrudServiceImpl implements UserCrudService {
     public DataTableResponse<User> findAll(DataTableRequest request) {
         return null;
     }
+
+    @Override
+    public Long findByEmail(String email) {
+        return userRepository.findByEmail(email).getId();
+    }
 }

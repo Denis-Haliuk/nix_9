@@ -1,31 +1,19 @@
-package com.alevel.persistence.entity.order;
+package com.alevel.web.dto.request;
 
-import com.alevel.persistence.entity.BaseEntity;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "orders")
-public class Order extends BaseEntity {
-
-    @Column(name = "cart_id")
+public class OrderRequestDto extends RequestDto{
     private Long cartId;
-
-    @Column(name = "customer_name")
     private String customerName;
-
-    @Column(name = "customer_address")
     private String customerAddress;
-
-    @Column(name = "customer_email")
     private String customerEmail;
-
-    @Column(name = "customer_phone")
     private String customerPhone;
 
+    public Long getCartId() {
+        return cartId;
+    }
 
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
+    }
 
     public String getCustomerName() {
         return customerName;
@@ -57,13 +45,5 @@ public class Order extends BaseEntity {
 
     public void setCustomerPhone(String customerPhone) {
         this.customerPhone = customerPhone;
-    }
-
-    public Long getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(Long cartId) {
-        this.cartId = cartId;
     }
 }

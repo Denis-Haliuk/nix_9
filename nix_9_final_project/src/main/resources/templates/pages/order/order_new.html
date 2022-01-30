@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/auth_layout}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700;800&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+    <title>New order</title>
+    <style>
+
+
+
+        * {box-sizing: border-box}
+
+        .container_r {
+            margin: 40px;
+            padding: 40px;
+            margin-top: 100px;
+
+        }
+
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 18px;
+            margin: 10px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+
+        input[type=text]:focus, input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+
+        hr {
+            border: 1px solid #B44B00;
+            margin-bottom: 25px;
+        }
+
+
+        .registerbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+
+
+        .text_reg {
+            color: #B44B00;
+            font-size: 35px;
+        }
+
+        .gradient-button {
+            text-decoration: none;
+            display: inline-block;
+            color: white;
+            padding: 20px 30px;
+            margin: 10px 20px;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background-image: linear-gradient(to right, #B44B00 0%, #FAA902 51%, #B44B00 100%);
+            background-size: 200% auto;
+            box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+            transition: .5s;
+        }
+        .gradient-button:hover {
+            background-position: right center;
+        }
+
+
+
+        .gradient-but {
+            text-decoration: none;
+            display: inline-block;
+            color: white;
+            padding: 20px 100px;
+            margin: 10px 470px;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background-image: linear-gradient(to right, #B44B00 0%, #FAA902 51%, #B44B00 100%);
+            background-size: 200% auto;
+            box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+            transition: .5s;
+        }
+        .gradient-but:hover {
+            background-position: right center;
+        }
+
+        .btn_b {
+            color: #FAA902;
+            border-top: 2px solid #FAA902;
+            border-bottom: 2px solid #FAA902;
+            border-right: 2px solid #FAA902;
+        }
+
+
+        .btn_b:first-child {
+            border-left: 2px solid #FAA902;
+        }
+    </style>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <form method="post" th:action="@{'/order/create/' + ${userId}}" th:object="${order}">
+        <div class="container_r">
+            <h1 class="text_reg">Enter your info</h1>
+
+            <hr>
+
+            <label for="email"><b>Email</b></label>
+            <input type="text" id="email" th:field="*{customerEmail}" placeholder="Enter Email" name="email" required>
+
+            <label for="name"><b>Name</b></label>
+            <input type="text" id="name" th:field="*{customerName}" placeholder="Enter Name" name="name" required>
+
+            <label for="Phone"><b>Phone number</b></label>
+            <input type="text" id="Phone" th:field="*{customerPhone}" placeholder="Phone number" name="Phone" required>
+
+            <label for="Address" ><b>Address</b></label>
+            <input type="text" id="Address" th:field="*{customerAddress}" placeholder="Address" name="Address" required>
+            <hr>
+
+
+
+            <div class="container signin">
+                <td class="btn_b"> <button  type="submit" class="gradient-but">Submit</button>
+                </td>
+            </div>
+    </form>
+
+<!--    <div class="row">-->
+<!--        <div class="col-12">-->
+<!--            <div class="card mt-2">-->
+<!--                <div class="card-header">-->
+<!--                    <h4>New book</h4>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    <form action="#" method="post" th:action="@{'/order/create/' + ${userId}}" th:object="${order}">-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="customerName">Enter your name</label>-->
+<!--                            <input aria-describedby="customerName" class="form-control" id="customerName" placeholder="Enter your name"-->
+<!--                                   th:field="*{customerName}" type="text">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="customerPhone">Phone</label>-->
+<!--                            <input aria-describedby="customerPhone" class="form-control" id="customerPhone"-->
+<!--                                   placeholder="Enter your phone" th:field="*{customerPhone}"-->
+<!--                                   type="number">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="customerEmail">Email</label>-->
+<!--                            <input aria-describedby="customerEmail" class="form-control" id="customerEmail" placeholder="Enter customerEmail"-->
+<!--                                   th:field="*{customerEmail}" type="text">-->
+<!--                        </div>-->
+<!--                        <div class="form-group">-->
+<!--                            <label for="customerAddress">Address</label>-->
+<!--                            <input class="form-control" id="customerAddress" placeholder="Enter customerAddress"-->
+<!--                                   th:field="*{customerAddress}" type="text">-->
+<!--                        </div>-->
+
+<!--                        <button class="btn btn-primary" type="submit">Submit</button>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+</div>
+
+</body>
+</html>

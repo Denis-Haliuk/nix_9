@@ -39,6 +39,8 @@ public class CartFacadeImpl implements CartFacade {
 
     @Override
     public List<CartResponseDto> cartByUserId(Long userId, WebRequest request) {
+        List<CartResponseDto> list = findAll(request).getItems();
+
         return findAll(request)
                 .getItems().stream()
                 .filter(dto -> Objects.equals(dto.getUserId(), userId))
