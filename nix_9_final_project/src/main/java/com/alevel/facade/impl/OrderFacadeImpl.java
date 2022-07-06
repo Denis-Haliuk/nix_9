@@ -36,6 +36,7 @@ public class OrderFacadeImpl implements OrderFacade {
         order.setCustomerEmail(orderRequestDto.getCustomerEmail());
         order.setCustomerPhone(orderRequestDto.getCustomerPhone());
         order.setCustomerAddress(orderRequestDto.getCustomerAddress());
+        order.setStatus("new");
         orderService.create(order);
     }
 
@@ -49,6 +50,7 @@ public class OrderFacadeImpl implements OrderFacade {
             order.setCustomerEmail(orderRequestDto.getCustomerEmail());
             order.setCustomerAddress(orderRequestDto.getCustomerAddress());
             order.setCustomerPhone(orderRequestDto.getCustomerPhone());
+            order.setStatus(orderRequestDto.getStatus());
             orderService.update(order);
         }
     }

@@ -25,7 +25,16 @@ public class Order extends BaseEntity {
     @Column(name = "customer_phone")
     private String customerPhone;
 
+    @Column(name = "status")
+    private String status;
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getCustomerName() {
         return customerName;

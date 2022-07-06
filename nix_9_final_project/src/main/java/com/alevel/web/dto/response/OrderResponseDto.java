@@ -11,6 +11,8 @@ public class OrderResponseDto extends ResponseDto {
     private String customerEmail;
     private String customerPhone;
 
+    private String status;
+
     public OrderResponseDto() {
 
     }
@@ -20,11 +22,13 @@ public class OrderResponseDto extends ResponseDto {
         setCreated(order.getCreated());
         setUpdated(order.getUpdated());
         setVisible(order.getVisible());
+        setStatus(order.getStatus());
         this.cartId = order.getCartId();
         this.customerName = order.getCustomerName();
         this.customerAddress = order.getCustomerAddress();
         this.customerEmail = order.getCustomerEmail();
         this.customerPhone = order.getCustomerPhone();
+        this.status = order.getStatus();
     }
 
     public Long getCartId() {
@@ -65,5 +69,13 @@ public class OrderResponseDto extends ResponseDto {
 
     public void setCustomerPhone(String customerPhone) {
         this.customerPhone = customerPhone;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

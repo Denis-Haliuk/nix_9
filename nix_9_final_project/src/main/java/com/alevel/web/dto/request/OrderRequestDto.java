@@ -7,6 +7,16 @@ public class OrderRequestDto extends RequestDto{
     private String customerEmail;
     private String customerPhone;
 
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Long getCartId() {
         return cartId;
     }

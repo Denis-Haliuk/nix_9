@@ -2,6 +2,7 @@ package com.alevel.web.controller.admin;
 
 import com.alevel.facade.OrderFacade;
 import com.alevel.web.controller.AbstractController;
+import com.alevel.web.dto.request.OrderRequestDto;
 import com.alevel.web.dto.response.ManufacturerResponseDto;
 import com.alevel.web.dto.response.OrderResponseDto;
 import com.alevel.web.dto.response.PageData;
@@ -58,6 +59,20 @@ public class AdminOrderController extends AbstractController{
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable @Min(value = 1, message = "id can not be zero") Long id) {
         orderFacade.delete(id);
+        return "redirect:/admin/orders";
+    }
+
+    @GetMapping("/update/{id}/{status}")
+    public String update(@PathVariable @Min(value = 1, message = "id can not be zero") Long id, @PathVariable String status){
+        OrderRequestDto req = new OrderRequestDto();
+        req.setCartId(orderFacade.findById(id).getCartId());
+        req.setCustomerEmail(orderFacade.findById(id).getCustomerEmail());
+        req.setCustomerName(orderFacade.findById(id).getCustomerName());
+        req.setCustomerPhone(orderFacade.findById(id).getCustomerPhone());
+        req.setCustomerAddress(orderFacade.findById(id).getCustomerAddress());
+        req.setStatus(status);
+
+        orderFacade.update(req, id);
         return "redirect:/admin/orders";
     }
 

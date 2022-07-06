@@ -6,6 +6,7 @@
 <head>
     <meta charset="utf-8">
     <title>orders</title>
+    <script type="text/javascript" th:src="@{/js/status.js}"></script>
 </head>
 <body>
 
@@ -17,14 +18,33 @@
         <td th:text="${#calendars.format(order.getCreated(),'dd MMMM yyyy')}"></td>
         <td th:text="${order.getCustomerEmail()}"></td>
         <td th:text="${order.getCustomerAddress()}"></td>
+        <td th:text="${order.getStatus()}"></td>
         <td>
-            <a th:href="@{'/admin/orders/details/' + ${order.getId()}}" type="button" class="btn btn-primary">details</a>
+            <select th:id="myselect + ${order.getId()}">
+                <option th:value="new" th:text="new">new</option>
+                <option th:value="accepted" th:text="accepted">accepted</option>
+                <option th:value="collecting" th:text="collecting">collecting</option>
+                <option th:value="delivering" th:text="delivering">delivering</option>
+                <option th:value="cancelled" th:text="cancelled">cancelled</option>
+                <option th:value="finished" th:text="finished">finished</option>
+            </select>
+        </td>
+
+        <td>
+            <BUTTON th:attr="onclick=|updateStatus('${order.getId()}')|"  type="button" class="btn btn-info">update
+            </BUTTON>
         </td>
         <td>
             <a th:href="@{'/admin/orders/delete/' + ${order.getId()}}" type="button" class="btn btn-danger">delete</a>
         </td>
     </tr>
 </div>
+
+
+<script>
+
+</script>
+
 
 </body>
 </html>
